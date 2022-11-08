@@ -13,7 +13,30 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className="text-gray-100 text-3xl">Rishikesh Shinde</h1>
+        <h1 className="text-gray-100 ">Rishikesh Shinde</h1>
+        {/* Header Section */}
+
+
+        {/* Hero Section */}
+
+        {/* About  */}
+
+        {/* Experience */}
+
+
+        {/* Skills */}
+
+
+        {/* Projects */}
+
+
+        {/* Blogs */}
+
+
+        {/* Contact Me */}
+
+
+
       </main>
 
       <footer className={styles.footer}>
