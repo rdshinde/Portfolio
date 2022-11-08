@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { BackgroundCircles, Header, Hero } from "../components";
+import { About, BackgroundCircles, Header, Hero } from "../components";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -16,13 +16,14 @@ const Home: NextPage = () => {
 
       <main>
         <Header />
-        <section id="hero" className="snap-center">
-          
+        <section id="hero" className="snap-start">
           <Hero />
         </section>
 
         {/* About  */}
-
+        <section id="about" className="snap-center">
+          <About />
+        </section>
         {/* Experience */}
 
         {/* Skills */}
