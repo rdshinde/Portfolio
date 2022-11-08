@@ -18,6 +18,11 @@ a {
 * {
   box-sizing: border-box;
 }
+@layer components {
+  .hero_button {
+    @apply text-xs px-6 py-2 rounded-full uppercase tracking-widest first-line:text-gray-200 transition-all hover:border hover:border-gray-500 hover:text-gray-500 cursor-pointer mx-3;
+  }
+}
 
 @media (prefers-color-scheme: dark) {
   html {
