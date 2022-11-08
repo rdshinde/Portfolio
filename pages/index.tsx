@@ -1,6 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { About, BackgroundCircles, Header, Hero } from "../components";
+import {
+  About,
+  BackgroundCircles,
+  Experience,
+  Header,
+  Hero,
+} from "../components";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -25,6 +31,9 @@ const Home: NextPage = () => {
           <About />
         </section>
         {/* Experience */}
+        <section id="experience" className="snap-center">
+          <Experience />
+        </section>
 
         {/* Skills */}
 

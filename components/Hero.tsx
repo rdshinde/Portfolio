@@ -1,7 +1,5 @@
 import React from "react";
-import { Typewriter } from "react-simple-typewriter";
-import Image from "next/image";
-
+import { motion } from "framer-motion";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import { BackgroundCircles } from "./BackgroundCircles";
 import Link from "next/link";
@@ -14,20 +12,38 @@ export const Hero = (props: Props) => {
       "Guy-who-makes-code-run-with-coffee.",
       "<Loves-to-cook    value={True} />",
       "<Loves-to-travel   value={True} />",
-      "Hi, This-is-Rishikesh-Shinde",
     ],
-    loop: 1,
-    delaySpeed: 100,
+    loop: true,
+    deleteSpeed: 40,
+    typeSpeed: 70,
+    delaySpeed: 2500,
   });
   return (
-    <div className="h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden">
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1.5 }}
+      className="h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden"
+    >
       <BackgroundCircles />
-      <img
-        className="rounded-full h-64 w-64 relative mx-auto object-cover bottom-14"
+      <motion.img
         src="https://pbs.twimg.com/profile_images/1577564208837062656/3HOjsIom_400x400.jpg"
-        alt=""
+        initial={{ opacity: 0, y: -300 }}
+        animate={{
+          opacity: [0.1, 0.2, 0.5, 0.8, 0.1, 1],
+          y: [-300, 0],
+        }}
+        transition={{ duration: 1.4 }}
+        className="rounded-full h-64 w-64 relative mx-auto object-cover bottom-14"
       />
-      <div className="z-20">
+      <motion.div
+        className="z-20"
+        initial={{ opacity: 0, y: 300 }}
+        animate={{ opacity: [0.1, 0.5, 0.8, 1], y: 0 }}
+        transition={{ duration: 2 }}
+      >
         <h2 className="test-sm uppercase text-gray-500 pb-2 tracking-[15px]">
           Web Enthusiast
         </h2>
@@ -52,7 +68,7 @@ export const Hero = (props: Props) => {
             <button className="hero_button">Blogs</button>
           </Link>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
