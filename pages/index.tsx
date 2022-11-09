@@ -2,10 +2,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import {
   About,
-  BackgroundCircles,
+  Contact,
   Experience,
   Header,
   Hero,
+  Projects,
   Skills,
 } from "../components";
 import styles from "../styles/Home.module.css";
@@ -13,7 +14,8 @@ import styles from "../styles/Home.module.css";
 const Home: NextPage = () => {
   return (
     <div
-      className={`${styles.container} snap-y snap-mandatory overflow-scroll z-0`}
+      className={`${styles.container} snap-y snap-mandatory overflow-scroll z-0 overflow-x-hidden 
+      scrollbar scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80`}
     >
       <Head>
         <title>Create Next App</title>
@@ -41,10 +43,14 @@ const Home: NextPage = () => {
           <Skills />
         </section>
         {/* Projects */}
-
+        <section className="snap-center" id="projects">
+          <Projects />
+        </section>
         {/* Blogs */}
-
         {/* Contact Me */}
+        <section className="snap-center" id="contact">
+          <Contact />
+        </section>
       </main>
 
       <footer className={styles.footer}>

@@ -19,6 +19,7 @@ export const Experience = (props: Props) => {
       <div className="w-full flex justify-center space-x-5 overflow-x-scroll p-10 snap-x snap-mandatory mt-36">
         <ExperienceCard />
       </div>
+     
     </motion.div>
   );
 };
