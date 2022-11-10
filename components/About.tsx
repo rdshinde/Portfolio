@@ -11,9 +11,9 @@ export const About = (props: Props) => {
         }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
-        className="flex flex-col relative h-screen text-center md-text-left md:flex-row max-w-7xl px-10 justify-evenly mx-auto items-center"
+        className="flex flex-col relative h-screen text-center md-text-left md:flex-row max-w-7xl px-10 justify-evenly mx-auto items-center mt-20"
       >
-        <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl">
+        <h3 className="absolute -top-24 sm:top-24 uppercase tracking-[20px] text-gray-500 text-2xl">
           About
         </h3>
         <motion.img
@@ -21,10 +21,10 @@ export const About = (props: Props) => {
           initial={{ x: -300, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.2 }}
-          className=" md:mb-0 flex-shrink-0 object-cover object-center rounded-full w-56 h-56 md:w-64 md:h-95 md:rounded-lg xl:w-[500px] xl:h-[500px] mt-48"
+          className=" md:mb-0 flex-shrink-0 object-cover object-center rounded-full w-56 h-56 md:w-64 md:h-95 md:rounded-lg xl:w-[500px] xl:h-[500px] mt-36"
         />
         <motion.div
-          className="space-y-10 mt-36 px:0 md:px-10"
+          className="space-y-10 mt-10 px:0 md:px-10"
           initial={{ x: 300, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1 }}

@@ -1,5 +1,7 @@
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import {
   About,
   Contact,
@@ -37,7 +39,6 @@ const Home: NextPage = () => {
         <section id="experience" className="snap-center">
           <Experience />
         </section>
-
         {/* Skills */}
         <section className="snap-center" id="skills">
           <Skills />
@@ -47,10 +48,21 @@ const Home: NextPage = () => {
           <Projects />
         </section>
         {/* Blogs */}
-        {/* Contact Me */}
         <section className="snap-center" id="contact">
           <Contact />
         </section>
+        <Link href="#hero">
+          <div className="sticky bottom-10 w-full cursor-pointer">
+            <div className="flex items-center justify-end">
+              <img
+                src="https://pbs.twimg.com/profile_images/1577564208837062656/3HOjsIom_400x400.jpg"
+                alt="profile"
+                className="h-10 w-10 rounded-full grayscale hover:grayscale-0"
+                title="Go to top"
+              />
+            </div>
+          </div>
+        </Link>
       </main>
 
       <footer className={styles.footer}>

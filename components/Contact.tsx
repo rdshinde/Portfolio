@@ -24,7 +24,9 @@ export const Contact = (props: Props) => {
       <div className="flex flex-col space-y-10">
         <h4 className="text-4xl font-semibold text-center">
           I have got just what you need.
+
           <span className="decoration-red-500/50 unserline"> Let&apos;s Talk.</span>
+
         </h4>
 
         <div className="space-y-10">
@@ -51,25 +53,25 @@ export const Contact = (props: Props) => {
               {...register("name")}
               type="text"
               placeholder="Name"
-              className="contact_input"
+              className="contact_input w-full"
             />
             <input
               {...register("email")}
-              type="email"
+              type="text"
               placeholder="Email"
-              className="contact_input"
+              className="contact_input w-full"
             />
           </div>
           <input
             {...register("subject")}
             type="text"
             placeholder="Subject"
-            className="contact_input"
+            className="contact_input  w-full"
           />
           <textarea
             {...register("message")}
             placeholder="Message"
-            className="contact_input"
+            className="contact_input  w-full"
           ></textarea>
           <button
             type="submit"
