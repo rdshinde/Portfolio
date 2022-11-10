@@ -15,7 +15,7 @@ export const Projects = (props: Props) => {
       transition={{ duration: 1.5 }}
       className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full justify-evenly mx-auto items-center z-0"
     >
-      <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl">
+      <h3 className="absolute top-5 uppercase tracking-[20px] text-gray-500 text-2xl">
         Projects
       </h3>
       <div className="relative w-full flex overflow-x-scroll overflow-y-hiddden snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80">

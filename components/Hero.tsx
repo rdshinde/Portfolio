@@ -51,7 +51,7 @@ export const Hero = (props: Props) => {
           <span>{text}</span>
           <Cursor cursorColor="#FF1615" />
         </h1>
-        <div className="pt-10">
+        <div className="pt-10 mt-20">
           <Link href={"#about"}>
             <button className="hero_button">About</button>
           </Link>
