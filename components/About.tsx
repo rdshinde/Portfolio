@@ -56,7 +56,7 @@ export const About = (props: Props) => {
             >
               https://firsteverblogs.hashnode.dev
             </a>{" "}
-            That's all about me in brief. Thank you! 🙏
+            That&apos;s all about me in brief. Thank you! 🙏
           </p>
         </motion.div>
       </motion.div>
