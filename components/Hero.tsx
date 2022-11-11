@@ -3,16 +3,15 @@ import { motion } from "framer-motion";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import { BackgroundCircles } from "./BackgroundCircles";
 import Link from "next/link";
-type Props = {};
+import { PageInfo } from "../typings";
+import { urlFor } from "../sanity";
+type Props = {
+  pageInfo: PageInfo;
+};
 
-export const Hero = (props: Props) => {
+export const Hero = ({ pageInfo }: Props) => {
   const [text, count] = useTypewriter({
-    words: [
-      "Hi, This-is-Rishikesh-Shinde",
-      "Guy-who-makes-code-run-with-coffee.",
-      "<Loves-to-cook    value={True} />",
-      "<Loves-to-travel   value={True} />",
-    ],
+    words: [...pageInfo.heroTexts],
     loop: true,
     deleteSpeed: 40,
     typeSpeed: 70,
@@ -25,29 +24,29 @@ export const Hero = (props: Props) => {
       }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden"
+      className="relative h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden"
     >
-      <BackgroundCircles />
       <motion.img
-        src="https://pbs.twimg.com/profile_images/1577564208837062656/3HOjsIom_400x400.jpg"
+        src={urlFor(pageInfo.heroImage).url()}
         initial={{ opacity: 0, y: -300 }}
         animate={{
           opacity: [0.1, 0.2, 0.5, 0.8, 0.1, 1],
           y: [-300, 0],
         }}
         transition={{ duration: 1.4 }}
-        className="rounded-full h-64 w-64 relative mx-auto object-cover bottom-14"
+        className="rounded-full h-48 w-48 relative mx-auto object-cover top-12"
       />
+      <BackgroundCircles />
       <motion.div
         className="z-20"
         initial={{ opacity: 0, y: 300 }}
         animate={{ opacity: [0.1, 0.5, 0.8, 1], y: 0 }}
         transition={{ duration: 2 }}
       >
-        <h2 className="test-sm uppercase text-gray-500 pb-2 tracking-[15px]">
-          Web Enthusiast
+        <h2 className="test-sm uppercase text-gray-500 pb-2 tracking-[15px] ">
+          {pageInfo.heroTitle}
         </h2>
-        <h1 className="text-5xl lg:text-6xl font-semibold px-10">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold px-10 h-[60px]">
           <span>{text}</span>
           <Cursor cursorColor="#FF1615" />
         </h1>

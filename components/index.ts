@@ -2,10 +2,10 @@ export { Hero } from "./Hero";
 export { Header } from "./Header";
 export { BackgroundCircles } from "./BackgroundCircles";
 export { About } from "./About";
-export { Experience } from "./Experience";
+export { ExperienceSection } from "./ExperienceSection";
 export { ExperienceCard } from "./ExperienceCard";
 
-export { Skills } from "./Skills";
+export { SkillsSection } from "./SkillsSection";
 export { Skill } from "./Skill";
 export { Projects } from "./Projects";
 export { ProjectCard } from "./ProjectCard";

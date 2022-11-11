@@ -12,13 +12,13 @@ export const BackgroundCircles = (props: Props) => {
         borderRadius: ["20%", "20%", "50%", "80%", "20%"],
       }}
       transition={{ duration: 2.5 }}
-      className="relative flex justify-center items-center"
+      className="relative flex justify-center items-center -top-16"
     >
-      <div className="absolute border border-gray-400 h-[200px] w-[200px] rounded-full mt-52 animate-ping" />
-      <div className="absolute border border-gray-500 h-[300px] w-[300px] rounded-full mt-52 animate-ping" />
-      <div className="absolute border border-gray-600 h-[500px] w-[500px] rounded-full mt-52 animate-ping" />
-      <div className="absolute border border-red-500 h-[650px] w-[650px] rounded-full mt-52 animate-pulse opacity-20" />
-      <div className="absolute border border-gray-700 h-[850px] w-[850px] rounded-full mt-52 " />
+      <div className="absolute border border-gray-400 h-[200px] w-[200px] rounded-full  animate-ping" />
+      <div className="absolute border border-gray-500 h-[300px] w-[300px] rounded-full  animate-ping" />
+      <div className="absolute border border-gray-600 h-[500px] w-[500px] rounded-full  animate-ping" />
+      <div className="absolute border border-red-500 h-[620px] w-[620px] rounded-full  animate-pulse opacity-20" />
+      <div className="absolute border border-gray-700 h-[800px] w-[800px] rounded-full  " />
     </motion.div>
   );
 };

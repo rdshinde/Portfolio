@@ -1,8 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-type Props = {};
+import { PageInfo } from "../typings";
+import { urlFor } from "../sanity";
+type Props = {
+  pageInfo: PageInfo;
+};
 
-export const About = (props: Props) => {
+export const About = ({ pageInfo }: Props) => {
   return (
     <>
       <motion.div
@@ -17,7 +21,7 @@ export const About = (props: Props) => {
           About
         </h3>
         <motion.img
-          src="https://pbs.twimg.com/profile_images/1577564208837062656/3HOjsIom_400x400.jpg"
+          src={urlFor(pageInfo.aboutImage).url()}
           initial={{ x: -300, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.2 }}
@@ -29,34 +33,11 @@ export const About = (props: Props) => {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <h4 className="text-4xl font-semibold text-gray-200">
-            Here is{" "}
-            <span className="underline decoration-red-500/90">little</span>{" "}
-            background.
+          <h4 className="text-3xl md:text-4xl font-semibold text-gray-200">
+            {pageInfo.aboutTitle}
           </h4>
-          <p className="text-gray-300 font-mono">
-            Hello 👋 , this is Rishikesh Shinde, a final year CS student. A
-            person who is attracted by the world of computer science and curious
-            as well as passionate to learn new technologies. As I am discovering
-            myself everyday, I found that I have a lot of interest in Web App
-            Development field, hence I am looking forward to make my career in
-            web development. Other than development field, I am very curious to
-            learn about newly developing Computer Architectures which includes
-            quantum computing and other interesting things related to that
-            domain. Other than coding I love cooking some Maharashtrian dishes.
-            I also do stocking 📈, and this field is teaching me a lot things
-            everyday. I like to share my new leanings as well as my experiences,
-            and I share these things by writing blogs ✍🏻 on them. You can read
-            my blogs here 👉
-            <a
-              href="https://firsteverblogs.hashnode.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-gray-400"
-            >
-              https://firsteverblogs.hashnode.dev
-            </a>{" "}
-            That&apos;s all about me in brief. Thank you! 🙏
+          <p className="text-gray-300 sm:font-semibold sm:text-lg">
+            {pageInfo.aboutText}
           </p>
         </motion.div>
       </motion.div>
