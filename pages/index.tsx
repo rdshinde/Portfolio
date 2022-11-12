@@ -20,7 +20,13 @@ import {
 import styles from "../styles/Home.module.css";
 import { Experience, PageInfo, Skills, Project, Social } from "../typings";
 
-const Home = ({ pageInfo, experience, projects, skills, socials }: Props) => {
+const Home: NextPage<any> = ({
+  pageInfo,
+  experience,
+  projects,
+  skills,
+  socials,
+}: Props) => {
   return (
     <div
       className={`${styles.container} snap-y snap-mandatory overflow-scroll z-0 overflow-x-hidden 
