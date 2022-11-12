@@ -55,7 +55,7 @@ const Home = ({ pageInfo, experience, projects, skills, socials }: Props) => {
         </section>
         {/* Blogs */}
         <section className="snap-center" id="contact">
-          <Contact />
+          <Contact pageInfo={pageInfo} />
         </section>
         <Link href="#hero">
           <div className="sticky bottom-10 w-full cursor-pointer">
