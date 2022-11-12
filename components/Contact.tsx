@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 type Props = {
   pageInfo: PageInfo;
 };
@@ -14,9 +14,13 @@ type Inputs = {
 };
 export const Contact = ({ pageInfo }: Props) => {
   const { register, handleSubmit } = useForm<Inputs>();
+
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    window.location.href = `mailto:rdshinde2000@gmail.com?subject=${formData.subject}&body=${formData.message}`;
+    if (formData) {
+      window.location.href = `mailto:rdshinde2000@gmail.com?subject=${formData.subject}&body=${formData.message}`;
+    }
   };
+
   return (
     <motion.div
       className="h-screen flex relative flex-col text-center md:text-left md:flex-row max-w-7xl px-10 justify-evenly mx-auto items-center"

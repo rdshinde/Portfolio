@@ -5,6 +5,6 @@ export const fetchPageInfo = async (): Promise<PageInfo> => {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/getPageInfo`
   );
   const { pageInfo } = await res.json();
-//   console.log(pageInfo);
+  // console.log(pageInfo);
   return pageInfo;
 };

@@ -25,7 +25,7 @@ export const ExperienceCard = ({ experience }: Props) => {
           {experience.company}
         </p>
         <div className="flex space-x-5 my-3 justify-center">
-          {experience.technologies.map((tech: any) => (
+          {experience.technologies?.map((tech: any) => (
             <img
               key={tech._id}
               src={urlFor(tech.icon).url()}
