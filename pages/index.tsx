@@ -36,9 +36,14 @@ const Home: NextPage<any> = ({
         <title>Rishikesh Shinde</title>
         <meta
           name="description"
+          property="og:description"
+          key="desc"
           content="Hello 👋 , this is Rishikesh Shinde, a final year CS student and a web enthusiast. A person who is attracted by the world of computer science and curious as well as passionate to learn new technologies."
         />
-        <meta content="https://cdn.sanity.io/images/ltmeza6x/production/c0d9bb9cab619aa36e739a1bc6ba2d9bc2d9c1fa-400x400.jpg" />
+        <meta
+          property="og:image"
+          content="https://cdn.sanity.io/images/ltmeza6x/production/c0d9bb9cab619aa36e739a1bc6ba2d9bc2d9c1fa-400x400.jpg"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
