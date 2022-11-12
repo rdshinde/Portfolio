@@ -1,5 +1,4 @@
 import React from "react";
-const projects = [1, 2, 3, 4, 5];
 import { motion } from "framer-motion";
 import { Project } from "../typings";
 import { urlFor } from "../sanity";

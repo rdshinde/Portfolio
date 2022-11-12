@@ -1,8 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-type Props = {};
 
-export const BackgroundCircles = (props: Props) => {
+export const BackgroundCircles = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
