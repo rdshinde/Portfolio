@@ -63,6 +63,7 @@ export interface PageInfo extends SanityBody {
   phoneNumber: string;
   email: string;
   address: string;
+  resume: string;
   socials: Social[];
 }
 export interface Social extends SanityBody {

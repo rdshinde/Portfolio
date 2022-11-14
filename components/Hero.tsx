@@ -63,8 +63,8 @@ export const Hero = ({ pageInfo }: Props) => {
           <Link href={"#projects"}>
             <button className="hero_button">Projects</button>
           </Link>
-          <Link href={"#blogs"}>
-            <button className="hero_button">Blogs</button>
+          <Link href={pageInfo?.resume} target="_blank">
+            <button className="hero_button">Resume</button>
           </Link>
         </div>
       </motion.div>

@@ -61,6 +61,11 @@ export default {
       type: "string",
     },
     {
+      name: "resume",
+      title: "Resume Link",
+      type: "url",
+    },
+    {
       name: "socials",
       title: "Socials",
       type: "array",
