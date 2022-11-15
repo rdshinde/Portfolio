@@ -20,7 +20,8 @@ export default {
     {
       name: "summary",
       title: "Summary",
-      type: "text",
+      type: "array",
+      of: [{ type: "string" }],
     },
     {
       name: "technologies",

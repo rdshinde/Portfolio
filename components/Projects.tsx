@@ -19,6 +19,9 @@ export const Projects = ({ projects }: Props) => {
       <h3 className="absolute top-28 sm:top-5 uppercase tracking-[20px] text-gray-500 text-2xl">
         Projects
       </h3>
+      <h3 className="absolute top-16 sm:top-20 uppercase tracking-[3px] text-gray-500 text-sm">
+        Scroll left to see more.
+      </h3>
       <div className="relative w-full flex overflow-x-scroll overflow-y-hiddden snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80">
         {projects?.map((project, index) => (
           <ProjectCard key={index} project={project} />

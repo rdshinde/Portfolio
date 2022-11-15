@@ -32,7 +32,13 @@ export const ProjectCard = ({ project }: Props) => {
       </div>
       <div className="space-y-10 px-0 md:px-10 max-w-6xl">
         <h4 className="text-4xl font-semibold text-center">{project.title}</h4>
-        <p className="text-large text-center md:text-left">{project.summary}</p>
+        <p className="text-large text-center md:text-left">
+          <ul>
+            {project?.summary.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        </p>
       </div>
     </div>
   );
