@@ -25,6 +25,7 @@ export const Blog = ({ blog }: Props) => {
           {blog.brief}
           <a
             target="_blank"
+            rel="noreferrer"
             href={`https://firsteverblogs.hashnode.dev/${blog.slug}`}
           >
             <span className="text-blue-500  hover:cursor-pointer">

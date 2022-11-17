@@ -18,12 +18,12 @@ export const ProjectCard = ({ project }: Props) => {
         className=" md:w-[650px] h-auto rounded-lg object-cover object-center"
       />
       <div className="flex items-baseline justify-evenly w-[400px] space-y-10 mt-5">
-        <a href={project?.linkToGithub || "#"} target="_blank">
+        <a href={project?.linkToGithub || "#"} target="_blank" rel="noreferrer">
           <button className="bg-transparent border border-gray-100 shadow-sm hover:bg-red-500 hover:text-gray-50 text-gray-100 font-bold py-2 px-4 rounded">
             View Source
           </button>
         </a>
-        <a href={project?.linkToBuild || "#"} target="_blank">
+        <a href={project?.linkToBuild || "#"} target="_blank" rel="noreferrer">
           <button className="bg-gray-100 hover:bg-red-500 text-gray-800 shadow-sm font-bold py-2 px-4 hover:text-gray-50 rounded">
             Check Build
           </button>
