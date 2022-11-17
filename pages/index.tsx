@@ -1,4 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+
 import Head from "next/head";
 import Link from "next/link";
 import {
@@ -16,6 +18,7 @@ import {
   Projects,
   SkillsSection,
   ExperienceSection,
+  BlogSection,
 } from "../components";
 import styles from "../styles/Home.module.css";
 import { Experience, PageInfo, Skills, Project, Social } from "../typings";
@@ -26,7 +29,9 @@ const Home: NextPage<any> = ({
   projects,
   skills,
   socials,
-}: Props) => {
+  blogs,
+}: Props | any) => {
+  console.log("blogs", blogs);
   return (
     <div
       className={`${styles.container} snap-y snap-mandatory overflow-scroll z-0 overflow-x-hidden 
@@ -69,6 +74,9 @@ const Home: NextPage<any> = ({
           <Projects projects={projects} />
         </section>
         {/* Blogs */}
+        <section className="snap-center" id="blogs">
+          <BlogSection blogs={blogs} />
+        </section>
         <section className="snap-center" id="contact">
           <Contact pageInfo={pageInfo} />
         </section>
@@ -111,7 +119,28 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const skills: Skills[] = await fetchSkills();
   const projects: Project[] = await fetchProjects();
   const socials: Social[] = await fetchSocials();
+  const client = new ApolloClient({
+    uri: "https://api.hashnode.com/",
+    cache: new InMemoryCache(),
+  });
 
+  const { data } = await client.query({
+    query: gql`
+      query GetPosts {
+        user(username: "rdshinde") {
+          publication {
+            posts(page: 0) {
+              _id
+              coverImage
+              slug
+              title
+              brief
+            }
+          }
+        }
+      }
+    `,
+  });
   return {
     props: {
       pageInfo,
@@ -119,6 +148,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       skills,
       projects,
       socials,
+      blogs: data.user.publication.posts,
     },
     revalidate: 10,
   };
