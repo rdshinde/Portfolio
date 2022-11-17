@@ -50,7 +50,7 @@ export const Hero = ({ pageInfo }: Props) => {
           <span>{text}</span>
           <Cursor cursorColor="#FF1615" />
         </h1>
-        <div className="pt-10 mt-20">
+        <div className="sm:pt-10 mt-20 sm:block hidden">
           <Link href={"#about"}>
             <button className="hero_button">About</button>
           </Link>
@@ -62,6 +62,9 @@ export const Hero = ({ pageInfo }: Props) => {
           </Link>
           <Link href={"#projects"}>
             <button className="hero_button">Projects</button>
+          </Link>
+          <Link href={"#blogs"}>
+            <button className="hero_button">Blogs</button>
           </Link>
           <Link href={pageInfo?.resume} target="_blank">
             <button className="hero_button">Resume</button>

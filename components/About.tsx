@@ -36,7 +36,7 @@ export const About = ({ pageInfo }: Props) => {
           <h4 className="text-3xl md:text-4xl font-semibold text-gray-200">
             {pageInfo.aboutTitle}
           </h4>
-          <p className="text-gray-300 sm:font-semibold sm:text-lg">
+          <p className="text-gray-300 sm:font-semibold sm:text-lg text-justify">
             {pageInfo.aboutText}
           </p>
         </motion.div>
