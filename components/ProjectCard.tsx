@@ -33,7 +33,7 @@ export const ProjectCard = ({ project }: Props) => {
         <h4 className="text-4xl font-semibold text-center">{project.title}</h4>
         <p className="text-large text-justify md:text-left">
           <ul className="list-disc">
-            {project?.summary.map((item, idx) => (
+            {project?.summary?.map((item, idx) => (
               <li key={idx} className="sm:text-xl">
                 {item}
               </li>
