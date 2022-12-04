@@ -15,8 +15,22 @@ export const ProjectCard = ({ project }: Props) => {
         transition={{ duration: 1.2 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className=" md:w-[650px] h-auto rounded-lg object-cover object-center"
+        className=" md:w-[650px] max-h-[350px] h-auto rounded-lg object-cover object-center"
       />
+      <div className="flex items-baseline justify-evenly w-[400px] space-y-10 mt-5">
+        {project.technologies?.map((skill, index) => (
+          <motion.img
+            key={index}
+            src={urlFor(skill.icon).url()}
+            alt={skill.title}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 1.2 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="w-[75px] h-[75px] object-fill bg-gray-50 p-2 rounded-full"
+          />
+        ))}
+      </div>
       <div className="flex items-baseline justify-evenly w-[400px] space-y-10 mt-5">
         <a href={project?.linkToGithub || "#"} target="_blank" rel="noreferrer">
           <button className="bg-transparent border border-gray-100 shadow-sm hover:bg-red-500 hover:text-gray-50 text-gray-100 font-bold py-2 px-4 rounded">

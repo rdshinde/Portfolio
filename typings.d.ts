@@ -19,7 +19,7 @@ interface Image {
 
 export interface Technology extends SanityBody {
   _type: "skill";
-  image: Image;
+  icon: Image;
   progress: number;
   title: string;
 }
