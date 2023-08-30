@@ -30,3 +30,4 @@ export const BlogSection = ({ blogs }: Props) => {
     </motion.div>
   );
 };
+ 
