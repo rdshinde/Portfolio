@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import { BackgroundCircles } from "./BackgroundCircles";
 import Link from "next/link";
@@ -17,6 +17,8 @@ export const Hero = ({ pageInfo }: Props) => {
     typeSpeed: 70,
     delaySpeed: 2500,
   });
+
+  const [showMobileNav, setShowMobileNav] = React.useState(false);
   return (
     <motion.div
       initial={{
@@ -24,7 +26,8 @@ export const Hero = ({ pageInfo }: Props) => {
       }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="relative h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden"
+      id="hero"
+      className="relative h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden mb-32 snap-start"
     >
       <motion.img
         src={urlFor(pageInfo.heroImage).url()}
@@ -34,7 +37,7 @@ export const Hero = ({ pageInfo }: Props) => {
           y: [-300, 0],
         }}
         transition={{ duration: 1.4 }}
-        className="rounded-full h-48 w-48 relative mx-auto object-cover top-12"
+        className="rounded-full h-32 w-32 xl:h-48 xl:w-48 relative mx-auto object-cover xl:top-28 top-12"
       />
       <BackgroundCircles />
       <motion.div
@@ -43,10 +46,10 @@ export const Hero = ({ pageInfo }: Props) => {
         animate={{ opacity: [0.1, 0.5, 0.8, 1], y: 0 }}
         transition={{ duration: 2 }}
       >
-        <h2 className="test-sm uppercase text-gray-500 pb-2 tracking-[15px] ">
+        <h2 className="test-md uppercase text-gray-500 pb-2 tracking-[15px] mt-24 animate-pulse transition-all ease-in-out duration-75">
           {pageInfo.heroTitle}
         </h2>
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold px-10 h-[60px]">
+        <h1 className="text-xl md:text-5xl lg:text-6xl font-semibold px-10 h-[60px] mt-8">
           <span>{text}</span>
           <Cursor cursorColor="#FF1615" />
         </h1>
@@ -71,6 +74,83 @@ export const Hero = ({ pageInfo }: Props) => {
           </Link>
         </div>
       </motion.div>
+      <nav className={`xl:hidden`}>
+        <div
+          className={`flex flex-col items-start justify-center p-4 bg-gray-200 text-red-800 z-40 opacity-1 fixed top-0 left-0 right-0 transition-all ease-[cubic-bezier(0.165, 0.84, 0.44, 1)] duration-700  ${
+            showMobileNav ? "translate-y-0" : "-translate-y-80"
+          } `}
+        >
+          <Link href={"#about"}>
+            <button
+              onClick={() => setShowMobileNav(!showMobileNav)}
+              className="hero_button"
+            >
+              About
+            </button>
+          </Link>
+          <Link href={"#experience"}>
+            <button
+              className="hero_button"
+              onClick={() => setShowMobileNav(!showMobileNav)}
+            >
+              Experience
+            </button>
+          </Link>
+          <Link href={"#skills"}>
+            <button
+              className="hero_button"
+              onClick={() => setShowMobileNav(!showMobileNav)}
+            >
+              Skills
+            </button>
+          </Link>
+          <Link href={"#projects"}>
+            <button
+              className="hero_button"
+              onClick={() => setShowMobileNav(!showMobileNav)}
+            >
+              Projects
+            </button>
+          </Link>
+          <Link href={"#blogs"}>
+            <button
+              className="hero_button"
+              onClick={() => setShowMobileNav(!showMobileNav)}
+            >
+              Blogs
+            </button>
+          </Link>
+          <Link href={pageInfo?.resume} target="_blank">
+            <button
+              className="hero_button"
+              onClick={() => setShowMobileNav(!showMobileNav)}
+            >
+              Resume
+            </button>
+          </Link>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 300 }}
+          animate={{ opacity: [0.1, 0.5, 0.8, 1], y: 0 }}
+          transition={{ duration: 2 }}
+          viewport={{ once: true }}
+          className="fixed right-2 top-2 text-red-800 z-40 flex items-center gap-2 uppercase font-bold"
+          onClick={() => setShowMobileNav(!showMobileNav)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-8 h-8"
+          >
+            <path
+              fillRule="evenodd"
+              d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </motion.div>
+      </nav>
     </motion.div>
   );
 };

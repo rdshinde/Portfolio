@@ -6,7 +6,7 @@ type Props = {
 
 export const Blog = ({ blog }: Props) => {
   return (
-    <div className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen">
+    <div className="w-screen flex-shrink-0 snap-center flex flex-col space-y-4 items-center justify-center p-8">
       <motion.img
         src={blog.coverImage}
         alt={blog.title}
@@ -14,11 +14,11 @@ export const Blog = ({ blog }: Props) => {
         transition={{ duration: 1.2 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className=" md:w-[650px] h-auto rounded-lg object-cover object-center"
+        className="w-auto h-auto max-w-[100%] max-h-[50%] md:max-w-[50%] md:lg:max-h-[30%] lg:max-w-[40%] lg:max-h-[40%] rounded-lg object-center mx-auto"
       />
 
-      <div className="space-y-10 px-0 md:px-10 max-w-6xl">
-        <h4 className="text-2xl sm:text-3xl font-semibold text-center">
+      <div className="space-y-10 px-0 md:px-10">
+        <h4 className="text-xl sm:text-3xl font-semibold text-center">
           {blog.title}
         </h4>
         <p className="text-large md:text-left text-justify">

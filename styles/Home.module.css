@@ -1,6 +1,5 @@
 .container {
   padding: 0 2rem;
- 
 }
 
 .footer {
@@ -37,4 +36,20 @@
   .logo img {
     filter: invert(1);
   }
+}
+
+@keyframes bounceX {
+  0%,
+  100% {
+    transform: translateX(-20%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate_bounceX {
+  animation: bounceX 0.8s infinite;
 }

@@ -10,20 +10,21 @@ type Props = {
 export const SkillsSection = ({ skills }: Props) => {
   return (
     <motion.div
-      className="h-screen flex relative flex-col text-center md:text-left xl:flex-row max-w-[2000px] xl:px-10 min-h-screen justify-center xl:space-y-0 mx-auto items-center"
+      className="relative h-screen space-y-8 text-center mb-32 snap-center"
       initial={{
         opacity: 0,
       }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
+      id="skills"
     >
-      <h3 className="absolute top-5 uppercase tracking-[20px] text-gray-500 text-2xl">
+      <h3 className="uppercase tracking-[20px] text-gray-500 text-md xl:text-2xl">
         Skills
       </h3>
-      <h3 className="absolute top-16 sm:top-20 uppercase tracking-[3px] text-gray-500 text-sm">
+      <h3 className="uppercase tracking-[3px] text-gray-500 text-sm">
         Hover over the icons to see the proficiency.
       </h3>
-      <div className="grid mt-48 sm:mt-0 grid-cols-3 sm:grid-cols-5 gap-5">
+      <div className="grid sm:mt-0 grid-cols-4 sm:grid-cols-5 md-grid-cols-6 gap-5 pt-16 lg:grid-cols-7 xl:grid-cols-7">
         {skills?.map((skill: any, i: number) => (
           <Skill
             key={skill._id}
@@ -34,6 +35,7 @@ export const SkillsSection = ({ skills }: Props) => {
           />
         ))}
       </div>
+     
     </motion.div>
   );
 };

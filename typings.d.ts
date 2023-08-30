@@ -68,6 +68,6 @@ export interface PageInfo extends SanityBody {
 }
 export interface Social extends SanityBody {
   _type: "socials";
-  titles: string;
+  title: string;
   url: string;
 }

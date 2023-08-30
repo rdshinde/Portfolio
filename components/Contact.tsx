@@ -23,19 +23,20 @@ export const Contact = ({ pageInfo }: Props) => {
 
   return (
     <motion.div
-      className="h-screen flex relative flex-col text-center md:text-left md:flex-row max-w-7xl px-10 justify-evenly mx-auto items-center"
+      className="h-screen flex relative flex-col text-center md:text-left md:flex-row max-w-7xl px-0 md:px-10 justify-evenly mx-auto items-center snap-center"
       initial={{
         opacity: 0,
       }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
+      id="contact"
     >
-      <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl">
+      <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-md xl:text-2xl">
         Contact
       </h3>
 
       <div className="flex flex-col space-y-10 mt-28 sm:mt-20">
-        <h4 className="text-3xl sm:text-4xl font-semibold text-center">
+        <h4 className="text-xl sm:text-4xl font-semibold text-center">
           I have got just what you need.
           <span className="decoration-red-500/50 unserline">
             {" "}
@@ -53,15 +54,15 @@ export const Contact = ({ pageInfo }: Props) => {
         >
           <div className="flex items-center space-x-5 justify-center">
             <PhoneIcon className="h-7 w-7 text-red-500 animate-pulse" />
-            <p className="text-2xl">{pageInfo.phoneNumber}</p>
+            <p className="text-lg">{pageInfo.phoneNumber}</p>
           </div>
           <div className="flex items-center space-x-5 justify-center">
             <EnvelopeIcon className="h-7 w-7 text-red-500 animate-pulse" />
-            <p className="text-2xl">{pageInfo.email}</p>
+            <p className="text-lg">{pageInfo.email}</p>
           </div>
           <div className="flex items-center space-x-5 justify-center">
             <MapPinIcon className="h-7 w-7 text-red-500 animate-pulse" />
-            <p className="text-2xl">{pageInfo.address}</p>
+            <p className="text-lg">{pageInfo.address}</p>
           </div>
         </motion.div>
 

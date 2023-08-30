@@ -1,5 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import React from "react";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -31,19 +32,15 @@ const Home: NextPage<any> = ({
   socials,
   blogs,
 }: Props | any) => {
-  console.log("blogs", blogs);
   return (
-    <div
-      className={`${styles.container} snap-y snap-mandatory overflow-scroll z-0 overflow-x-hidden 
-      scrollbar scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80`}
-    >
+    <div className={`${styles.container} `}>
       <Head>
         <title>Rishikesh Shinde</title>
         <meta
           name="description"
           property="og:description"
           key="desc"
-          content="Hello 👋 , this is Rishikesh Shinde, a final year CS student and a web enthusiast. A person who is attracted by the world of computer science and curious as well as passionate to learn new technologies."
+          content="Hello 👋 , this is Rishikesh Shinde, a recent Conputer Engineering passout and a web enthusiast. A person who is attracted by the world of computer science and curious as well as passionate to learn new technologies."
         />
         <meta
           property="og:image"
@@ -52,34 +49,26 @@ const Home: NextPage<any> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main
+        className="snap-y snap-mandatory overflow-y-auto scrollbar-thin z-0 overflow-x-hidden 
+      scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80"
+      >
         <Header socials={socials} />
-        <section id="hero" className="snap-start">
-          <Hero pageInfo={pageInfo} />
-        </section>
 
-        <section id="about" className="snap-center">
-          <About pageInfo={pageInfo} />
-        </section>
+        <Hero pageInfo={pageInfo} />
 
-        <section id="experience" className="snap-center">
-          <ExperienceSection experience={experience} />
-        </section>
+        <About pageInfo={pageInfo} />
 
-        <section className="snap-center" id="skills">
-          <SkillsSection skills={skills} />
-        </section>
+        <ExperienceSection experience={experience} />
 
-        <section className="snap-center" id="projects">
-          <Projects projects={projects} />
-        </section>
-        {/* Blogs */}
-        <section className="snap-center" id="blogs">
-          <BlogSection blogs={blogs} />
-        </section>
-        <section className="snap-center" id="contact">
-          <Contact pageInfo={pageInfo} />
-        </section>
+        <SkillsSection skills={skills} />
+
+        <Projects projects={projects} />
+
+        <BlogSection blogs={blogs} />
+
+        <Contact pageInfo={pageInfo} />
+
         <Link href="#hero">
           <div className="sticky bottom-10 w-full cursor-pointer">
             <div className="flex items-center justify-end">

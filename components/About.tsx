@@ -15,31 +15,35 @@ export const About = ({ pageInfo }: Props) => {
         }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
-        className="flex flex-col relative h-screen text-center md-text-left md:flex-row max-w-7xl px-10 justify-evenly mx-auto items-center mt-20"
+        id="about"
+        className="relative h-screen space-y-8 text-center overflow-hidden mb-32 snap-center"
       >
-        <h3 className="absolute -top-24 sm:top-24 uppercase tracking-[20px] text-gray-500 text-2xl">
+        <h3 className="uppercase tracking-[20px] text-gray-500 text-md xl:text-2xl mb-16">
           About
         </h3>
-        <motion.img
-          src={urlFor(pageInfo.aboutImage).url()}
-          initial={{ x: -300, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1.2 }}
-          className=" md:mb-0 flex-shrink-0 object-cover object-center rounded-full w-56 h-56 md:w-64 md:h-95 md:rounded-lg xl:w-[500px] xl:h-[500px] mt-36"
-        />
-        <motion.div
-          className="space-y-10 mt-10 px:0 md:px-10"
-          initial={{ x: 300, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <h4 className="text-3xl md:text-4xl font-semibold text-gray-200">
-            {pageInfo.aboutTitle}
-          </h4>
-          <p className="text-gray-300 sm:font-semibold sm:text-lg text-justify">
-            {pageInfo.aboutText}
-          </p>
-        </motion.div>
+        <div className="xl:flex xl:flex-row xl:justify-center xl:items-center text-center flex flex-col items-center">
+          <motion.img
+            src={urlFor(pageInfo.aboutImage).url()}
+            initial={{ x: -300, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="flex-shrink-0 object-cover object-center rounded-full w-56 h-56 md:w-64 md:h-95 md:rounded-lg xl:w-[500px] xl:h-[500px]"
+          />
+          <motion.div
+            className="space-y-10 mt-10 px:0 md:px-10"
+            initial={{ x: 300, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <h4 className="text-3xl md:text-4xl font-semibold text-gray-200">
+              {pageInfo.aboutTitle}
+            </h4>
+            <p className="text-gray-300 sm:font-semibold sm:text-lg text-justify">
+              {pageInfo.aboutText}
+            </p>
+          </motion.div>
+        </div>
       </motion.div>
       <div className="w-full absolute top-[30%] bg-red-500/10 left-0 h-[500px] -skew-y-12"></div>
     </>
