@@ -22,7 +22,7 @@ export const BlogSection = ({ blogs }: Props) => {
       <h3 className="uppercase tracking-[3px] text-gray-500 text-sm">
         Scroll left to see more.
       </h3>
-      <div className="relative w-full flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80">
+      <div className="relative w-full flex overflow-x-auto snap-x snap-mandatory scrollbar-thin scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80 max-h-[80%] overflow-y-hidden pb-5">
         {blogs?.map((blog, index) => (
           <Blog key={index} blog={blog} />
         ))}

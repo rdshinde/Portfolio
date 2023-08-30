@@ -25,7 +25,6 @@ export const ExperienceSection = ({ experience }: Props) => {
           {experience?.map((exp) => (
             <>
               <ExperienceCard key={exp._id} experience={exp} />
-              <ExperienceCard key={exp._id} experience={exp} />
             </>
           ))}
         </div>
