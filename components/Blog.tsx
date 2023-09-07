@@ -2,11 +2,15 @@ import React from "react";
 import { motion } from "framer-motion";
 type Props = {
   blog: any;
+  key: number;
 };
 
-export const Blog = ({ blog }: Props) => {
+export const Blog = ({ blog, key }: Props) => {
   return (
-    <div className="w-screen flex-shrink-0 snap-center flex flex-col space-y-4 items-center justify-center p-8">
+    <div
+      key={key}
+      className="w-screen flex-shrink-0 snap-center flex flex-col space-y-4 items-center justify-center p-8"
+    >
       <motion.img
         src={blog.coverImage}
         alt={blog.title}

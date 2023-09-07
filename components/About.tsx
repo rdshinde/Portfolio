@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { PageInfo } from "../typings";
 import { urlFor } from "../sanity";
 type Props = {
@@ -22,14 +23,23 @@ export const About = ({ pageInfo }: Props) => {
           About
         </h3>
         <div className="xl:flex xl:flex-row xl:justify-center xl:items-center text-center flex flex-col items-center">
-          <motion.img
-            src={urlFor(pageInfo.aboutImage).url()}
+          <motion.div
+            className="aspect-w-16 aspect-h-9 flex-shrink-0 object-center max-w-[40%] rounded-full w-56 h-56 md:w-64 md:h-95 md:rounded-lg xl:w-[500px] xl:h-[500px]"
             initial={{ x: -300, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="flex-shrink-0 object-cover object-center rounded-full w-56 h-56 md:w-64 md:h-95 md:rounded-lg xl:w-[500px] xl:h-[500px]"
-          />
+          >
+            <Image
+              src={urlFor(pageInfo.aboutImage).url()}
+              layout="responsive"
+              objectFit="cover" 
+              height={1}
+              width={1}
+              alt="about"
+              className="rounded-full md:rounded-lg"
+            />
+          </motion.div>
           <motion.div
             className="space-y-10 mt-10 px:0 md:px-10"
             initial={{ x: 300, opacity: 0 }}

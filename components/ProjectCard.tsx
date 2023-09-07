@@ -4,10 +4,14 @@ import { Project } from "../typings";
 import { urlFor } from "../sanity";
 type Props = {
   project: Project;
+  key: number;
 };
-export const ProjectCard = ({ project }: Props) => {
+export const ProjectCard = ({ project, key }: Props) => {
   return (
-    <div className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center px-16 md:px-20">
+    <div
+      key={key}
+      className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center px-16 md:px-20"
+    >
       <motion.img
         src={urlFor(project.image).url()}
         alt={project.title}

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, useAnimation } from "framer-motion";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
+import Image from "next/image";
 import { BackgroundCircles } from "./BackgroundCircles";
 import Link from "next/link";
 import { PageInfo } from "../typings";
@@ -29,16 +30,24 @@ export const Hero = ({ pageInfo }: Props) => {
       id="hero"
       className="relative h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden mb-32 snap-start"
     >
-      <motion.img
-        src={urlFor(pageInfo.heroImage).url()}
+      <motion.div
+        className="rounded-full h-32 w-32 xl:h-48 xl:w-48 relative mx-auto object-cover xl:top-28 top-12"
         initial={{ opacity: 0, y: -300 }}
         animate={{
           opacity: [0.1, 0.2, 0.5, 0.8, 0.1, 1],
           y: [-300, 0],
         }}
         transition={{ duration: 1.4 }}
-        className="rounded-full h-32 w-32 xl:h-48 xl:w-48 relative mx-auto object-cover xl:top-28 top-12"
-      />
+      >
+        <Image
+          src={urlFor(pageInfo.heroImage).url()}
+          width={1}
+          height={1}
+          layout="responsive"
+          objectFit="cover"
+          className="rounded-full"
+        />
+      </motion.div>
       <BackgroundCircles />
       <motion.div
         className="z-20"
