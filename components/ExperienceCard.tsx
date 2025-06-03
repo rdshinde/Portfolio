@@ -8,26 +8,31 @@ type Props = {
 
 export const ExperienceCard = ({ experience }: Props) => {
   const startDate = new Date(experience.dateStarted);
-  const endDate = new Date(experience.dateEnded);
+  // const endDate = new Date(experience.dateEnded); // We will handle endDate conditionally
   return (
     <div className="w-screen snap-center flex justify-center flex-shrink-0">
-      <article className="rounded-lg bg-[#292929] opacity-60 hover:opacity-100 transition-opacity duration-200 hover:cursor-pointer flex flex-col justify-center items-center xl:mb-20 xl:py-10 xl:px-5 px-5 py-10 xl:w-[82.5vw] w-[80vw] max-w-[450px]">
+      {/* Card background: Light mode bg-gray-100, Dark mode bg-[#292929] */}
+      <motion.article
+        whileHover={{ scale: 1.03 }}
+        transition={{ type: "spring", stiffness: 300, damping: 10 }}
+        className="rounded-lg bg-gray-100 dark:bg-[#292929] transition-opacity duration-200 hover:cursor-pointer flex flex-col justify-center items-center xl:mb-20 px-4 py-8 sm:px-5 sm:py-10 w-[90%] max-w-lg"
+      > {/* Adjusted padding */}
         <motion.img
           src={urlFor(experience.companyImage).url()}
           initial={{ y: -100, opacity: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2 }}
           viewport={{ once: true }}
-          className="rounded-full object-center flex flex-shrink-0 w-[100px] h-[100px] mb-2 p-1"
+          className="rounded-full object-cover object-center flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 mb-2 p-1" /* Responsive image size */
         />
-        <div className="">
-          <h4 className="text-md xl:text-2xl font-semibold text-center">
+        <div className="w-full px-2 sm:px-4"> {/* Adjusted padding */}
+          <h4 className="text-base sm:text-lg md:text-xl font-semibold text-center text-gray-800 dark:text-gray-100"> {/* Responsive text size */}
             {experience.jobTitle}
           </h4>
-          <p className="font-bold text-md xl:text-2xl mt-1 text-center">
+          <p className="font-bold text-base sm:text-lg md:text-xl mt-1 text-center text-gray-700 dark:text-gray-200"> {/* Responsive text size */}
             {experience.company}
           </p>
-          <div className="flex space-x-4 md:space-x-5 my-3 justify-center flex-wrap">
+          <div className="flex space-x-3 sm:space-x-4 my-2 sm:my-3 justify-center flex-wrap"> {/* Adjusted spacing */}
             {experience.technologies?.map((tech: any) => (
               <img
                 key={tech._id}
@@ -37,17 +42,31 @@ export const ExperienceCard = ({ experience }: Props) => {
               />
             ))}
           </div>
-          <p className="uppercase py-4 text-center text-gray-400 text-sm md:text-base">
-            {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
+          <p className="uppercase py-3 sm:py-4 text-center text-gray-500 dark:text-gray-400 text-xs sm:text-sm md:text-base"> {/* Responsive text and padding */}
+            {startDate.toLocaleDateString()} -{" "}
+            {experience.isCurrentlyWorkingHere
+              ? "Present"
+              : new Date(experience.dateEnded).toLocaleDateString()}
           </p>
-          <ul className="space-y-3 md:space-y-4 md:text-lg">
+          <ul className="space-y-2 sm:space-y-3 list-disc pl-5 sm:pl-6 md:pl-8"> {/* Adjusted spacing and list styling */}
             {experience.description.map((desc: any) => (
               <li
                 key={desc._key}
-                className="text-gray-400 text-sm xl:text-md text-start flex justify-start items-center"
+                className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm md:text-base text-start" /* No flex needed if using list-disc, adjusted text size */
               >
-                <span className="mr-2">
-                  <svg
+                {/* SVG icon removed as list-disc is used now. If SVG is preferred, add flex back and remove list-disc from ul. */}
+                {/* <span className="mr-2">
+                  <svg ... />
+                </span> */}
+                {desc}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.article>
+    </div>
+  );
+};
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"

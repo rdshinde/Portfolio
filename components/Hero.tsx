@@ -6,6 +6,8 @@ import { BackgroundCircles } from "./BackgroundCircles";
 import Link from "next/link";
 import { PageInfo } from "../typings";
 import { urlFor } from "../sanity";
+import { MobileNav } from "./MobileNav"; // Import MobileNav
+
 type Props = {
   pageInfo: PageInfo;
 };
@@ -19,7 +21,7 @@ export const Hero = ({ pageInfo }: Props) => {
     delaySpeed: 2500,
   });
 
-  const [showMobileNav, setShowMobileNav] = React.useState(false);
+  // const [showMobileNav, setShowMobileNav] = React.useState(false); // Removed state
   return (
     <motion.div
       initial={{
@@ -28,10 +30,10 @@ export const Hero = ({ pageInfo }: Props) => {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
       id="hero"
-      className="relative h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden mb-32 snap-start"
+      className="relative min-h-screen flex flex-col space-y-6 sm:space-y-8 justify-center items-center text-center overflow-hidden py-16 md:py-24 snap-start" /* Adjusted container */
     >
       <motion.div
-        className="rounded-full h-32 w-32 xl:h-48 xl:w-48 relative mx-auto object-cover xl:top-28 top-12"
+        className="rounded-full h-32 w-32 xl:h-48 xl:w-48 relative mx-auto object-cover xl:top-28 top-12" /* Keeping image size/pos for now */
         initial={{ opacity: 0, y: -300 }}
         animate={{
           opacity: [0.1, 0.2, 0.5, 0.8, 0.1, 1],
@@ -55,14 +57,14 @@ export const Hero = ({ pageInfo }: Props) => {
         animate={{ opacity: [0.1, 0.5, 0.8, 1], y: 0 }}
         transition={{ duration: 2 }}
       >
-        <h2 className="test-md uppercase text-gray-500 pb-2 tracking-[15px] mt-24 animate-pulse transition-all ease-in-out duration-75">
+        <h2 className="text-sm sm:text-base uppercase text-gray-600 dark:text-gray-500 pb-2 tracking-[0.08em] sm:tracking-[0.1em] md:tracking-[0.12em] mt-12 sm:mt-16 md:mt-20 animate-pulse transition-all ease-in-out duration-75"> {/* Corrected typo, responsive tracking & margin */}
           {pageInfo.heroTitle}
         </h2>
-        <h1 className="text-xl md:text-5xl lg:text-6xl font-semibold px-10 h-[60px] mt-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold px-4 sm:px-6 md:px-8 h-[60px] sm:h-[70px] mt-4 sm:mt-6 text-black dark:text-white"> {/* Responsive text, padding, height, margin */}
           <span>{text}</span>
           <Cursor cursorColor="#FF1615" />
         </h1>
-        <div className="sm:pt-10 mt-20 sm:block hidden">
+        <div className="pt-6 sm:pt-8 mt-8 sm:mt-10 sm:block hidden"> {/* Adjusted padding and margin */}
           <Link href={"#about"}>
             <button className="hero_button">About</button>
           </Link>
@@ -83,83 +85,8 @@ export const Hero = ({ pageInfo }: Props) => {
           </Link>
         </div>
       </motion.div>
-      <nav className={`xl:hidden`}>
-        <div
-          className={`flex flex-col items-start justify-center p-4 bg-gray-200 text-red-800 z-40 opacity-1 fixed top-0 left-0 right-0 transition-all ease-[cubic-bezier(0.165, 0.84, 0.44, 1)] duration-700  ${
-            showMobileNav ? "translate-y-0" : "-translate-y-80"
-          } `}
-        >
-          <Link href={"#about"}>
-            <button
-              onClick={() => setShowMobileNav(!showMobileNav)}
-              className="hero_button"
-            >
-              About
-            </button>
-          </Link>
-          <Link href={"#experience"}>
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Experience
-            </button>
-          </Link>
-          <Link href={"#skills"}>
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Skills
-            </button>
-          </Link>
-          <Link href={"#projects"}>
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Projects
-            </button>
-          </Link>
-          <Link href={"#blogs"}>
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Blogs
-            </button>
-          </Link>
-          <Link href={pageInfo?.resume} target="_blank">
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Resume
-            </button>
-          </Link>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 300 }}
-          animate={{ opacity: [0.1, 0.5, 0.8, 1], y: 0 }}
-          transition={{ duration: 2 }}
-          viewport={{ once: true }}
-          className="fixed right-2 top-2 text-red-800 z-40 flex items-center gap-2 uppercase font-bold"
-          onClick={() => setShowMobileNav(!showMobileNav)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-8 h-8"
-          >
-            <path
-              fillRule="evenodd"
-              d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </motion.div>
-      </nav>
+      {/* Render MobileNav component */}
+      <MobileNav resumeLink={pageInfo?.resume} />
     </motion.div>
   );
 };

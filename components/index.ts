@@ -14,3 +14,4 @@ export { ProjectCard } from "./ProjectCard";
 export { Contact } from "./Contact";
 export { BlogSection } from "./BlogSection";
 export { Blog } from "./Blog";
+export { MobileNav } from "./MobileNav";

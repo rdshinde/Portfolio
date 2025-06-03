@@ -23,6 +23,16 @@ import {
 } from "../components";
 import styles from "../styles/Home.module.css";
 import { Experience, PageInfo, Skills, Project, Social } from "../typings";
+import { urlFor } from "../sanity"; // Import urlFor
+
+// Helper function to truncate text for meta descriptions
+const truncateText = (text: string, maxLength: number = 160): string => {
+  if (!text) return "";
+  if (text.length <= maxLength) return text;
+  return text.substring(0, text.lastIndexOf(" ", maxLength - 3)) + "...";
+};
+
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://yourdomain.com"; // Replace with actual domain
 
 const Home: NextPage<any> = ({
   pageInfo,
@@ -35,23 +45,47 @@ const Home: NextPage<any> = ({
   return (
     <div className={`${styles.container} `}>
       <Head>
-        <title>Rishikesh Shinde</title>
+        <title>{`${pageInfo?.name || "Portfolio"} - ${pageInfo?.heroTitle || "Developer"}`}</title>
         <meta
           name="description"
-          property="og:description"
+          content={truncateText(pageInfo?.aboutText)}
           key="desc"
-          content="Hello 👋 , this is Rishikesh Shinde, a recent Conputer Engineering passout and a web enthusiast. A person who is attracted by the world of computer science and curious as well as passionate to learn new technologies."
+          // property="og:description" was removed here as it's duplicated below
         />
-        <meta
-          property="og:image"
-          content="https://cdn.sanity.io/images/ltmeza6x/production/c0d9bb9cab619aa36e739a1bc6ba2d9bc2d9c1fa-400x400.jpg"
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content={`${pageInfo?.name || "Portfolio"} - ${pageInfo?.heroTitle || "Developer"}`} />
+        <meta property="og:description" content={truncateText(pageInfo?.aboutText)} />
+        {pageInfo?.heroImage && (
+          <meta property="og:image" content={urlFor(pageInfo.heroImage).width(1200).height(630).fit('crop').url()} />
+        )}
+        <meta property="og:url" content={NEXT_PUBLIC_BASE_URL} />
+        <meta property="og:type" content="website" />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: pageInfo?.name,
+              url: NEXT_PUBLIC_BASE_URL,
+              image: pageInfo?.heroImage ? urlFor(pageInfo.heroImage).url() : "",
+              jobTitle: pageInfo?.heroTitle,
+              email: pageInfo?.email,
+              telephone: pageInfo?.phoneNumber,
+              address: pageInfo?.address, // Assuming address is a simple string
+              sameAs: socials?.map((social: Social) => social.url) || [],
+            }),
+          }}
         />
+
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main
         className="snap-y snap-mandatory overflow-y-auto scrollbar-thin z-0 overflow-x-hidden 
-      scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80"
+      scrollbar-track-gray-200/20 dark:scrollbar-track-gray-400/20 scrollbar-thumb-red-500/80"
       >
         <Header socials={socials} />
 
@@ -83,8 +117,8 @@ const Home: NextPage<any> = ({
         </Link>
       </main>
 
-      <footer className={styles.footer}>
-        <small className="text-gray-500">
+      <footer className={`${styles.footer} py-4 text-center`}> {/* Added some padding and text-center */}
+        <small className="text-gray-600 dark:text-gray-400">
           Built with ❤️ by Rishikesh Shinde
         </small>
       </footer>

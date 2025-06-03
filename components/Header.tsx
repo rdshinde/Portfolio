@@ -4,15 +4,19 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Social } from "../typings";
 import styles from "../styles/Home.module.css";
+import { ThemeToggle } from "./ThemeToggle"; // Import ThemeToggle
+import { useTheme } from "../contexts/ThemeContext"; // Import useTheme
+
 type Props = {
   socials: Social[];
 };
 export const Header = ({ socials }: Props) => {
+  const { theme } = useTheme(); // Get current theme
   const [showSocials, setShowSocials] = React.useState(false);
   return (
     <>
       <header
-        className={`fixed top-[27.5%] right-0 xl:sticky flex-col xl:justify-between xl:top-0 flex xl:flex-row xl:items-start max-w-7xl mx-auto z-20 transition-all ease-in-out duration-500 xl:translate-x-0 ${
+        className={`fixed top-[27.5%] right-0 xl:sticky flex-col xl:justify-between xl:top-0 flex xl:flex-row items-end xl:items-start max-w-7xl mx-auto z-20 transition-all ease-in-out duration-500 xl:translate-x-0 ${ /* Added items-end for flex-col */
           showSocials ? "-translate-x-4" : "translate-x-20"
         }`}
       >
@@ -28,22 +32,26 @@ export const Header = ({ socials }: Props) => {
             scale: 1,
           }}
           transition={{ duration: 1.3 }}
-          className="flex flex-col xl:flex-row text-gray-300 cursor-pointer shadow-lg shadow-red-500/10" // Flex direction reversed for mobile
+          className="flex flex-col xl:flex-row cursor-pointer shadow-lg shadow-red-500/10" // Removed text-gray-300 as fgColor is dynamic now
         >
           {/* Mapping through social icons */}
           {socials?.map((social) => (
             <SocialIcon
               url={social.url}
-              fgColor="gray"
+              fgColor={theme === 'dark' ? 'gray' : '#555555'} // Dark: gray, Light: darker gray
               bgColor="transparent"
               key={social._id}
               title={social.title}
             />
           ))}
         </motion.div>
+        {/* Theme Toggle Button */}
+        <div className="my-2 xl:my-0 xl:mx-4"> {/* Added wrapper for spacing */}
+          <ThemeToggle />
+        </div>
         <Link href="#contact">
           <motion.div
-            className="flex flex-col xl:flex-row items-center text-gray-300 cursor-pointer shadow-lg shadow-red-500/10" // Flex direction reversed for mobile
+            className="flex flex-col xl:flex-row items-center cursor-pointer shadow-lg shadow-red-500/10" // Removed text-gray-300
             initial={{
               opacity: 0,
               x: 500,
@@ -59,18 +67,18 @@ export const Header = ({ socials }: Props) => {
             <SocialIcon
               className="cursor-pointer"
               network="email"
-              fgColor="gray"
+              fgColor={theme === 'dark' ? 'gray' : '#555555'} // Dark: gray, Light: darker gray
               bgColor="transparent"
               title="Email"
             />
-            <p className="uppercase hidden xl:inline-flex text-sm text-gray-400">
+            <p className="uppercase hidden xl:inline-flex text-sm text-gray-600 dark:text-gray-400">
               Get in touch
             </p>
           </motion.div>
         </Link>
         <div
-          className={`fixed top-[47.5%] right-24 xl:hidden ${
-            showSocials ? "translate-x-28" : "-translate-x-0"
+          className={`fixed top-[47.5%] right-6 xl:hidden ${ /* Changed right-24 to right-6 */
+            showSocials ? "translate-x-28" : "-translate-x-0" /* This translate seems large if right-6 is used */
           } xl:none`}
           onClick={() => setShowSocials(!showSocials)}
         >
@@ -79,7 +87,7 @@ export const Header = ({ socials }: Props) => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className={`w-4 h-4 ${styles.animate_bounceX} transition-all duration-300 ease-in-out hover:text-gray-400 cursor-pointer`}
+              className={`w-6 h-6 ${styles.animate_bounceX} transition-all duration-300 ease-in-out text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400 cursor-pointer`} /* Increased SVG size */
             >
               <path
                 fill-rule="evenodd"
@@ -92,7 +100,7 @@ export const Header = ({ socials }: Props) => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className={`w-4 h-4 ${styles.animate_bounceX} transition-all duration-300 ease-in-out hover:text-gray-400 cursor-pointer`}
+              className={`w-6 h-6 ${styles.animate_bounceX} transition-all duration-300 ease-in-out text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400 cursor-pointer`} /* Increased SVG size */
             >
               <path
                 fillRule="evenodd"

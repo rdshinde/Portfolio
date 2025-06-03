@@ -18,21 +18,37 @@ a {
 * {
   box-sizing: border-box;
 }
-@layer components {
-  .hero_button {
-    @apply text-xs px-6 py-2 rounded-full uppercase tracking-widest first-line:text-gray-400 transition-all hover:border hover:border-gray-500 hover:text-gray-500 cursor-pointer mx-3;
-  }
-  .contact_input {
-    @apply outline-none bg-slate-400/10 rounded-sm border-b px-6 py-4 border-[#242424] text-gray-500 placeholder-gray-500 transition-all focus:border-red-500/40 focus:text-red-500/40;
-  }
+
+/* Base body styles (Light Mode) */
+body {
+  @apply bg-white text-black;
+  /* transition-colors duration-300 ease-in-out; Optional: transition for theme change */
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Dark Mode body styles (when html has .dark class) */
+html.dark body {
+  @apply bg-black text-white;
+}
+
+@layer components {
+  .hero_button {
+    @apply text-xs px-6 py-2 rounded-full uppercase tracking-widest transition-all cursor-pointer mx-3;
+    /* Light Mode */
+    @apply text-gray-700 hover:border hover:border-gray-600 hover:text-gray-600;
+    /* Dark Mode */
+    @apply dark:text-gray-400 dark:hover:border dark:hover:border-gray-500 dark:hover:text-gray-500;
+    /* Assuming 'first-line:text-gray-400' was intended for overall text color in dark mode. If it's specific, it needs separate handling. */
+    @apply hover:scale-105 active:scale-95 transform; /* Added hover and active scale effects */
   }
-  body {
-    color: white;
-    background: black;
+  .contact_input {
+    @apply outline-none rounded-sm border-b px-6 py-4 transition-all focus:border-red-500/40 focus:text-red-500/40;
+    /* Light Mode */
+    @apply bg-gray-100/50 border-gray-300 text-gray-800 placeholder-gray-500;
+    /* Dark Mode */
+    @apply dark:bg-slate-400/10 dark:border-[#242424] dark:text-gray-400 dark:placeholder-gray-500;
+    /* Note: text-gray-500 was used for both text and placeholder in dark mode, adjusted placeholder for light mode slightly.
+       If dark mode text should be lighter than placeholder, dark:text-gray-300 could be used.
+       The original dark:text-gray-500 is kept for now.
+    */
   }
 }
