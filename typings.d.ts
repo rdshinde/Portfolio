@@ -45,8 +45,8 @@ export interface Experience extends SanityBody {
   _type: "experience";
   company: string;
   companyImage: Image;
-  dateStarted: Date;
-  dateEnded: Date;
+  startDate: string;
+  endDate: string;
   isCurrentlyWorkingHere: boolean;
   jobTitle: string;
   description: string[];
@@ -69,5 +69,17 @@ export interface PageInfo extends SanityBody {
 export interface Social extends SanityBody {
   _type: "socials";
   title: string;
+  url: string;
+}
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  brief: string;
+  publishedAt: string;
+  readTimeInMinutes: number;
+  coverImage: string;
+  tags: string[];
   url: string;
 }

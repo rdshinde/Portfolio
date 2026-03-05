@@ -1,7 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import React from "react";
-
 import Head from "next/head";
 import Link from "next/link";
 import {
@@ -10,6 +8,7 @@ import {
   fetchProjects,
   fetchPageInfo,
   fetchSkills,
+  fetchBlogs,
 } from "../utils";
 import {
   About,
@@ -20,27 +19,37 @@ import {
   SkillsSection,
   ExperienceSection,
   BlogSection,
+  FloatingBalls,
 } from "../components";
-import styles from "../styles/Home.module.css";
-import { Experience, PageInfo, Skills, Project, Social } from "../typings";
+import { Experience, PageInfo, Skills, Project, Social, BlogPost } from "../typings";
 
-const Home: NextPage<any> = ({
+type Props = {
+  pageInfo: PageInfo;
+  experience: Experience[];
+  skills: Skills[];
+  projects: Project[];
+  socials: Social[];
+  blogs: BlogPost[];
+};
+
+const Home: NextPage<Props> = ({
   pageInfo,
   experience,
   projects,
   skills,
   socials,
   blogs,
-}: Props | any) => {
+}) => {
   return (
-    <div className={`${styles.container} `}>
+    <div className="min-h-screen relative">
+      {/* 3D Floating balls background */}
+      <FloatingBalls />
+
       <Head>
-        <title>Rishikesh Shinde</title>
+        <title>{pageInfo?.name || "Rishikesh Shinde"} — Portfolio</title>
         <meta
           name="description"
-          property="og:description"
-          key="desc"
-          content="Hello 👋 , this is Rishikesh Shinde, a recent Conputer Engineering passout and a web enthusiast. A person who is attracted by the world of computer science and curious as well as passionate to learn new technologies."
+          content="Rishikesh Shinde — Software Engineer crafting digital experiences with precision and care."
         />
         <meta
           property="og:image"
@@ -49,12 +58,9 @@ const Home: NextPage<any> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main
-        className="snap-y snap-mandatory overflow-y-auto scrollbar-thin z-0 overflow-x-hidden 
-      scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80"
-      >
-        <Header socials={socials} />
+      <Header socials={socials} />
 
+      <main className="relative z-10">
         <Hero pageInfo={pageInfo} />
 
         <About pageInfo={pageInfo} />
@@ -68,39 +74,51 @@ const Home: NextPage<any> = ({
         <BlogSection blogs={blogs} />
 
         <Contact pageInfo={pageInfo} />
-
-        <Link href="#hero">
-          <div className="sticky bottom-10 w-full cursor-pointer">
-            <div className="flex items-center justify-end">
-              <img
-                src="https://pbs.twimg.com/profile_images/1577564208837062656/3HOjsIom_400x400.jpg"
-                alt="profile"
-                className="h-10 w-10 rounded-full grayscale hover:grayscale-0"
-                title="Go to top"
-              />
-            </div>
-          </div>
-        </Link>
       </main>
 
-      <footer className={styles.footer}>
-        <small className="text-gray-500">
-          Built with ❤️ by Rishikesh Shinde
-        </small>
+      {/* Footer */}
+      <footer
+        className="py-8 text-center"
+        style={{ borderTop: "1px solid var(--border-light)" }}
+      >
+        <p className="text-caption" style={{ color: "var(--text-tertiary)" }}>
+          Designed & built by {pageInfo?.name || "Rishikesh Shinde"}
+        </p>
       </footer>
+
+      {/* Back to top */}
+      <Link href="#hero">
+        <div className="fixed bottom-6 right-6 z-30">
+          <div
+            className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"
+            style={{
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-light)",
+              boxShadow: "var(--shadow-md)",
+            }}
+          >
+            <svg
+              className="w-4 h-4"
+              style={{ color: "var(--text-secondary)" }}
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4.5 15.75l7.5-7.5 7.5 7.5"
+              />
+            </svg>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };
 
 export default Home;
-
-type Props = {
-  pageInfo: PageInfo;
-  experience: Experience[];
-  skills: Skills[];
-  projects: Project[];
-  socials: Social[];
-};
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const pageInfo: PageInfo = await fetchPageInfo();
@@ -108,28 +126,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const skills: Skills[] = await fetchSkills();
   const projects: Project[] = await fetchProjects();
   const socials: Social[] = await fetchSocials();
-  const client = new ApolloClient({
-    uri: "https://api.hashnode.com/",
-    cache: new InMemoryCache(),
-  });
+  const blogs: BlogPost[] = await fetchBlogs();
 
-  const { data } = await client.query({
-    query: gql`
-      query GetPosts {
-        user(username: "rdshinde") {
-          publication {
-            posts(page: 0) {
-              _id
-              coverImage
-              slug
-              title
-              brief
-            }
-          }
-        }
-      }
-    `,
-  });
   return {
     props: {
       pageInfo,
@@ -137,8 +135,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       skills,
       projects,
       socials,
-      blogs: data.user.publication.posts,
+      blogs,
     },
-    revalidate: 10,
+    revalidate: 60,
   };
 };

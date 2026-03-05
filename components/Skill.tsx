@@ -1,43 +1,56 @@
 import React from "react";
-import { motion } from "framer-motion";
+
 type Props = {
-  directionLeft?: boolean;
   skillName: string;
   proficiency: number;
   url: string;
 };
 
-export const Skill = ({
-  directionLeft,
-  skillName,
-  proficiency,
-  url,
-}: Props) => {
+export const Skill = ({ skillName, proficiency, url }: Props) => {
   return (
-    <div className="group relative cursor-pointer flex items-center justify-center">
-      <motion.div
-        initial={{
-          opacity: 0,
-          x: directionLeft ? -200 : 200,
+    <div className="group relative flex flex-col items-center gap-3 cursor-pointer">
+      {/* Icon container */}
+      <div
+        className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center p-3 transition-all duration-500 group-hover:scale-105"
+        style={{
+          background: "var(--bg-secondary)",
+          boxShadow: "var(--shadow-sm)",
         }}
-        transition={{ duration: 1 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        className="rounded-full min-h-16 min-w-16 filter p-2 group-hover:grayscale transition duration-300 ease-in-out bg-gray-50 flex items-center justify-center"
       >
         <img
           src={url}
-          className="rounded-full h-full w-full md:h-20 md:w-20 flex-shrink-0 object-center"
+          alt={skillName}
+          className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
+          style={{
+            filter:
+              "var(--skill-icon-filter, none)",
+          }}
         />
-      </motion.div>
-      <div className="absolute opacity-0 group-hover:opacity-95 transition duration-300 group-hover:bg-gray-50 h-full w-full md:h-20 md:w-20 rounded-full z-0 flex justify-center items-center">
-        <div className="flex items-center justify-center">
-          <p className="text-sm lg:text-md font-bold opacity-100 text-gray-800">
-            <p className="text-center">{proficiency}%</p>
-            <p className="text-center text-sm">{skillName}</p>
-          </p>
+
+        {/* Hover overlay with proficiency */}
+        <div
+          className="absolute inset-0 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300"
+          style={{
+            background: "var(--bg-elevated)",
+            border: "1px solid var(--border-light)",
+          }}
+        >
+          <span
+            className="text-title font-bold"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {proficiency}%
+          </span>
         </div>
       </div>
+
+      {/* Skill name */}
+      <span
+        className="text-overline text-center transition-colors duration-300"
+        style={{ color: "var(--text-tertiary)" }}
+      >
+        {skillName}
+      </span>
     </div>
   );
 };

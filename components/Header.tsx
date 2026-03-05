@@ -1,108 +1,176 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SocialIcon } from "react-social-icons";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Social } from "../typings";
-import styles from "../styles/Home.module.css";
+import { ThemeToggle } from "./ThemeToggle";
+
 type Props = {
   socials: Social[];
 };
+
+const navLinks = [
+  { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
+  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Blogs", href: "#blogs" },
+  { label: "Contact", href: "#contact" },
+];
+
 export const Header = ({ socials }: Props) => {
-  const [showSocials, setShowSocials] = React.useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
-      <header
-        className={`fixed top-[27.5%] right-0 xl:sticky flex-col xl:justify-between xl:top-0 flex xl:flex-row xl:items-start max-w-7xl mx-auto z-20 transition-all ease-in-out duration-500 xl:translate-x-0 ${
-          showSocials ? "-translate-x-4" : "translate-x-20"
+      <motion.header
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled ? "glass shadow-[var(--shadow-sm)]" : ""
         }`}
       >
-        <motion.div
-          initial={{
-            opacity: 0,
-            x: -500,
-            scale: 0.5,
-          }}
-          animate={{
-            x: 0,
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{ duration: 1.3 }}
-          className="flex flex-col xl:flex-row text-gray-300 cursor-pointer shadow-lg shadow-red-500/10" // Flex direction reversed for mobile
-        >
-          {/* Mapping through social icons */}
-          {socials?.map((social) => (
-            <SocialIcon
-              url={social.url}
-              fgColor="gray"
-              bgColor="transparent"
-              key={social._id}
-              title={social.title}
+        <nav className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 h-16 flex items-center justify-between">
+          {/* Logo / Name */}
+          <Link href="#hero" className="group">
+            <span
+              className="text-title font-semibold tracking-tight transition-opacity duration-300 group-hover:opacity-70"
+              style={{ color: "var(--text-primary)" }}
+            >
+              RS
+              <span
+                className="text-caption font-normal ml-1 hidden sm:inline"
+                style={{ color: "var(--text-tertiary)" }}
+              >
+                .
+              </span>
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-caption font-medium transition-all duration-300 hover:opacity-60"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Right section */}
+          <div className="flex items-center gap-3">
+            {/* Socials (desktop only) */}
+            <div className="hidden lg:flex items-center gap-0.5">
+              {socials?.slice(0, 4).map((social) => (
+                <SocialIcon
+                  key={social._id}
+                  url={social.url}
+                  fgColor="var(--text-tertiary)"
+                  bgColor="transparent"
+                  style={{ width: 32, height: 32 }}
+                  target="_blank"
+                  className="transition-opacity duration-300 hover:opacity-60"
+                />
+              ))}
+            </div>
+
+            <div
+              className="w-px h-5 mx-1 hidden lg:block"
+              style={{ background: "var(--border-light)" }}
             />
-          ))}
-        </motion.div>
-        <Link href="#contact">
+
+            <ThemeToggle />
+
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-full transition-colors duration-300 hover:bg-[var(--accent-muted)]"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              <svg
+                className="w-5 h-5"
+                style={{ color: "var(--text-primary)" }}
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+              >
+                {mobileOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 9h16.5m-16.5 6.75h16.5"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </motion.header>
+
+      {/* Mobile Nav */}
+      <AnimatePresence>
+        {mobileOpen && (
           <motion.div
-            className="flex flex-col xl:flex-row items-center text-gray-300 cursor-pointer shadow-lg shadow-red-500/10" // Flex direction reversed for mobile
-            initial={{
-              opacity: 0,
-              x: 500,
-              scale: 0.5,
-            }}
-            animate={{
-              x: 0,
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{ duration: 1.5 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            className="fixed inset-0 z-40 pt-20 glass md:hidden"
           >
-            <SocialIcon
-              className="cursor-pointer"
-              network="email"
-              fgColor="gray"
-              bgColor="transparent"
-              title="Email"
-            />
-            <p className="uppercase hidden xl:inline-flex text-sm text-gray-400">
-              Get in touch
-            </p>
+            <div className="flex flex-col items-center gap-6 py-12">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05, duration: 0.3 }}
+                >
+                  <Link
+                    href={link.href}
+                    className="text-headline font-semibold transition-opacity duration-300 hover:opacity-60"
+                    style={{ color: "var(--text-primary)" }}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+
+              <div className="flex items-center gap-2 mt-8">
+                {socials?.map((social) => (
+                  <SocialIcon
+                    key={social._id}
+                    url={social.url}
+                    fgColor="var(--text-tertiary)"
+                    bgColor="transparent"
+                    style={{ width: 36, height: 36 }}
+                    target="_blank"
+                  />
+                ))}
+              </div>
+            </div>
           </motion.div>
-        </Link>
-        <div
-          className={`fixed top-[47.5%] right-24 xl:hidden ${
-            showSocials ? "translate-x-28" : "-translate-x-0"
-          } xl:none`}
-          onClick={() => setShowSocials(!showSocials)}
-        >
-          {showSocials ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className={`w-4 h-4 ${styles.animate_bounceX} transition-all duration-300 ease-in-out hover:text-gray-400 cursor-pointer`}
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className={`w-4 h-4 ${styles.animate_bounceX} transition-all duration-300 ease-in-out hover:text-gray-400 cursor-pointer`}
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-                clipRule="evenodd"
-              />
-            </svg>
-          )}
-        </div>
-      </header>
+        )}
+      </AnimatePresence>
     </>
   );
 };

@@ -1,55 +1,11 @@
+/* Minimal module styles — most styling uses Tailwind + CSS variables */
 .container {
-  padding: 0 2rem;
+  min-height: 100vh;
 }
 
 .footer {
   display: flex;
-  flex: 1;
   padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
-  }
-}
-
-@keyframes bounceX {
-  0%,
-  100% {
-    transform: translateX(-20%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-}
-
-.animate_bounceX {
-  animation: bounceX 0.8s infinite;
 }

@@ -1,66 +1,97 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Project } from "../typings";
 import { urlFor } from "../sanity";
+
 type Props = {
   project: Project;
-  key: number;
 };
-export const ProjectCard = ({ project, key }: Props) => {
-  return (
-    <div
-      key={key}
-      className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center px-16 md:px-20"
-    >
-      <motion.img
-        src={urlFor(project.image).url()}
-        alt={project.title}
-        initial={{ y: -300, opacity: 0 }}
-        transition={{ duration: 1.2 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="w-full h-auto max-w-[100%] max-h-[50%] md:max-w-[50%] md:lg:max-h-[30%] lg:max-w-[40%] lg:max-h-[40%] rounded-lg object-center mx-auto"
-      />
 
-      <div className="flex items-baseline justify-evenly gap-4 flex-wrap">
-        {project.technologies?.map((skill, index) => (
-          <motion.img
-            key={index}
-            src={urlFor(skill.icon).url()}
-            alt={skill.title}
-            initial={{ opacity: 0 }}
-            transition={{ duration: 1.2 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="w-[50px] h-[50px] object-fit bg-gray-50 p-2 rounded-full"
-          />
-        ))}
+export const ProjectCard = ({ project }: Props) => {
+  return (
+    <div className="card group overflow-hidden">
+      {/* Image */}
+      <div className="relative aspect-video overflow-hidden">
+        <img
+          src={urlFor(project.image).url()}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        {/* Overlay with links */}
+        <div
+          className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500"
+          style={{ background: "rgba(0,0,0,0.5)" }}
+        >
+          {project?.linkToGithub && (
+            <a
+              href={project.linkToGithub}
+              target="_blank"
+              rel="noreferrer"
+              className="px-5 py-2.5 rounded-full text-caption font-medium bg-white text-black transition-transform duration-300 hover:scale-105"
+            >
+              Source
+            </a>
+          )}
+          {project?.linkToBuild && (
+            <a
+              href={project.linkToBuild}
+              target="_blank"
+              rel="noreferrer"
+              className="px-5 py-2.5 rounded-full text-caption font-medium border border-white text-white transition-transform duration-300 hover:scale-105"
+            >
+              Live Demo
+            </a>
+          )}
+        </div>
       </div>
-      <div className="flex items-baseline justify-evenly w-[400px] space-y-10">
-        <a href={project?.linkToGithub || "#"} target="_blank" rel="noreferrer">
-          <button className="bg-transparent border border-gray-100 hover:border-red-500 shadow-sm hover:bg-red-500 hover:text-gray-50 text-gray-100 font-bold py-1 px-2 text-md md:text-lg md:py-2 md:px-4 rounded">
-            View Source
-          </button>
-        </a>
-        <a href={project?.linkToBuild || "#"} target="_blank" rel="noreferrer">
-          <button className="bg-gray-100 hover:bg-red-500 text-gray-800 shadow-sm font-bold py-1 px-2 text-md md:text-lg md:py-2 md:px-4 hover:text-gray-50 rounded">
-            Check Build
-          </button>
-        </a>
-      </div>
-      <div className="space-y-5">
-        <h4 className="text-xl xl:text-3xl font-semibold text-center">
+
+      {/* Content */}
+      <div className="p-6">
+        <h3
+          className="text-title font-semibold mb-2"
+          style={{ color: "var(--text-primary)" }}
+        >
           {project.title}
-        </h4>
-        <p className="text-large text-justify md:text-left">
-          <ul className="list-disc">
-            {project?.summary?.map((item, idx) => (
-              <li key={idx} className="sm:text-sm">
+        </h3>
+
+        {/* Tech stack */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.technologies?.map((tech: any, index: number) => (
+            <span
+              key={tech._id || index}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-md text-overline"
+              style={{
+                background: "var(--bg-secondary)",
+                color: "var(--text-tertiary)",
+              }}
+            >
+              <img
+                src={urlFor(tech.icon).url()}
+                alt={tech.title}
+                className="w-3.5 h-3.5 rounded-sm"
+              />
+              {tech.title}
+            </span>
+          ))}
+        </div>
+
+        {/* Summary */}
+        {project?.summary?.length > 0 && (
+          <ul className="space-y-1.5">
+            {project.summary.slice(0, 3).map((item: string, idx: number) => (
+              <li
+                key={idx}
+                className="flex items-start gap-2 text-caption"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                <span
+                  className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0"
+                  style={{ background: "var(--text-tertiary)" }}
+                />
                 {item}
               </li>
             ))}
           </ul>
-        </p>
+        )}
       </div>
     </div>
   );
