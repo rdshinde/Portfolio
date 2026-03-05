@@ -1,10 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
-    domains: ["cdn.sanity.io", "cdn.hashnode.com"],
-    formats: ["image/webp"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.hashnode.com",
+      },
+    ],
   },
 };
 

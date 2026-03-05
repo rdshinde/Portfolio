@@ -2,34 +2,78 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ExperienceCard } from "./ExperienceCard";
 import { Experience } from "../typings";
+
 type Props = {
   experience: Experience[];
 };
 
 export const ExperienceSection = ({ experience }: Props) => {
+  // Sort by startDate descending (most recent first)
+  const sorted = [...(experience ?? [])].sort((a, b) => {
+    const da = a.startDate ? new Date(a.startDate).getTime() : 0;
+    const db = b.startDate ? new Date(b.startDate).getTime() : 0;
+    return db - da;
+  });
+
   return (
-    <>
-      <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-        className="relative h-screen space-y-8 text-center overflow-hidden mb-16 snap-center"
-        id="experience"
-      >
-        <h3 className="uppercase tracking-[20px] text-gray-500 text-md xl:text-2xl mb-16">
-          Experience
-        </h3>
-        <div className="flex justify-between gap-10 overflow-x-auto snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20  scrollbar-thumb-red-500/80 pb-10">
-          {experience?.map((exp) => (
-            <>
-              <ExperienceCard key={exp._id} experience={exp} />
-            </>
-          ))}
+    <section id="experience">
+      <div className="section-container">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="text-center mb-20"
+        >
+          <p className="section-heading">Where I&apos;ve Worked</p>
+          <h2
+            className="text-display font-bold"
+            style={{ color: "var(--text-primary)" }}
+          >
+            Experience
+          </h2>
+        </motion.div>
+
+        {/* Connected wireframe cards */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Vertical connector wire running behind all cards */}
+          {sorted.length > 1 && (
+            <div
+              className="absolute left-[27px] md:left-8 top-0 bottom-0 w-[2px]"
+              style={{ background: "var(--border-light)" }}
+            />
+          )}
+
+          <div className="space-y-0">
+            {sorted.map((exp, index) => (
+              <ExperienceCard
+                key={exp._id}
+                experience={exp}
+                index={index}
+                isLast={index === sorted.length - 1}
+                total={sorted.length}
+              />
+            ))}
+          </div>
+
+          {/* Terminal dot */}
+          {sorted.length > 0 && (
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+                delay: sorted.length * 0.08,
+              }}
+              className="relative z-10 ml-[21px] md:ml-[26px] w-3 h-3 rounded-full"
+              style={{ background: "var(--border)" }}
+            />
+          )}
         </div>
-        <div className="w-full absolute top-[10%] bg-red-500/10 left-0 h-[500px] -skew-y-12 -z-10"></div>
-      </motion.div>
-    </>
+      </div>
+    </section>
   );
 };

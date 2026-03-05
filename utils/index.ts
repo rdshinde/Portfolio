@@ -3,3 +3,4 @@ export { fetchProjects } from "./fetchProjects";
 export { fetchPageInfo } from "./fetchPageInfo";
 export { fetchExperience } from "./fetchExperience";
 export { fetchSocials } from "./fetchSocials";
+export { fetchBlogs } from "./fetchBlogs";

@@ -3,39 +3,53 @@ import { motion } from "framer-motion";
 import { Skill } from "./Skill";
 import { Skills } from "../typings";
 import { urlFor } from "../sanity";
+
 type Props = {
   skills: Skills[];
 };
 
 export const SkillsSection = ({ skills }: Props) => {
   return (
-    <motion.div
-      className="relative h-screen space-y-8 text-center mb-32 snap-center"
-      initial={{
-        opacity: 0,
-      }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
-      id="skills"
-    >
-      <h3 className="uppercase tracking-[20px] text-gray-500 text-md xl:text-2xl">
-        Skills
-      </h3>
-      <h3 className="uppercase tracking-[3px] text-gray-500 text-sm">
-        Hover over the icons to see the proficiency.
-      </h3>
-      <div className="grid sm:mt-0 grid-cols-4 sm:grid-cols-5 md-grid-cols-6 gap-5 pt-16 lg:grid-cols-7 xl:grid-cols-7">
-        {skills?.map((skill: any, i: number) => (
-          <Skill
-            key={skill._id}
-            proficiency={skill.progress}
-            directionLeft={i > 10}
-            url={urlFor(skill.icon).url()}
-            skillName={skill.title}
-          />
-        ))}
+    <section id="skills">
+      <div className="section-container">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="text-center mb-16"
+        >
+          <p className="section-heading">What I Work With</p>
+          <h2
+            className="text-display font-bold"
+            style={{ color: "var(--text-primary)" }}
+          >
+            Skills & Tools
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-4 md:gap-6 max-w-4xl mx-auto">
+          {skills?.map((skill: any, i: number) => (
+            <motion.div
+              key={skill._id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: i * 0.03,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              viewport={{ once: true }}
+            >
+              <Skill
+                proficiency={skill.progress}
+                url={urlFor(skill.icon).url()}
+                skillName={skill.title}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
-     
-    </motion.div>
+    </section>
   );
 };

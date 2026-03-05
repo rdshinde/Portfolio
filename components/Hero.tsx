@@ -1,165 +1,158 @@
 import React from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import Image from "next/image";
-import { BackgroundCircles } from "./BackgroundCircles";
 import Link from "next/link";
 import { PageInfo } from "../typings";
 import { urlFor } from "../sanity";
+
 type Props = {
   pageInfo: PageInfo;
 };
 
 export const Hero = ({ pageInfo }: Props) => {
-  const [text, count] = useTypewriter({
-    words: [...pageInfo.heroTexts],
+  const [text] = useTypewriter({
+    words: [...(pageInfo?.heroTexts || [])],
     loop: true,
     deleteSpeed: 40,
     typeSpeed: 70,
     delaySpeed: 2500,
   });
 
-  const [showMobileNav, setShowMobileNav] = React.useState(false);
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
+    <section
       id="hero"
-      className="relative h-screen flex flex-col space-y-8 justify-center items-center text-center overflow-hidden mb-32 snap-start"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      <motion.div
-        className="rounded-full h-32 w-32 xl:h-48 xl:w-48 relative mx-auto object-cover xl:top-28 top-12"
-        initial={{ opacity: 0, y: -300 }}
-        animate={{
-          opacity: [0.1, 0.2, 0.5, 0.8, 0.1, 1],
-          y: [-300, 0],
+      {/* Subtle gradient background */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 50%, var(--accent-muted) 0%, transparent 70%)",
         }}
-        transition={{ duration: 1.4 }}
-      >
-        <Image
-          src={urlFor(pageInfo.heroImage).url()}
-          width={1}
-          height={1}
-          layout="responsive"
-          objectFit="cover"
-          className="rounded-full"
-        />
-      </motion.div>
-      <BackgroundCircles />
-      <motion.div
-        className="z-20"
-        initial={{ opacity: 0, y: 300 }}
-        animate={{ opacity: [0.1, 0.5, 0.8, 1], y: 0 }}
-        transition={{ duration: 2 }}
-      >
-        <h2 className="test-md uppercase text-gray-500 pb-2 tracking-[15px] mt-24 animate-pulse transition-all ease-in-out duration-75">
-          {pageInfo.heroTitle}
-        </h2>
-        <h1 className="text-xl md:text-5xl lg:text-6xl font-semibold px-10 h-[60px] mt-8">
-          <span>{text}</span>
-          <Cursor cursorColor="#FF1615" />
-        </h1>
-        <div className="sm:pt-10 mt-20 sm:block hidden">
-          <Link href={"#about"}>
-            <button className="hero_button">About</button>
-          </Link>
-          <Link href={"#experience"}>
-            <button className="hero_button">Experience</button>
-          </Link>
-          <Link href={"#skills"}>
-            <button className="hero_button">Skills</button>
-          </Link>
-          <Link href={"#projects"}>
-            <button className="hero_button">Projects</button>
-          </Link>
-          <Link href={"#blogs"}>
-            <button className="hero_button">Blogs</button>
-          </Link>
-          <Link href={pageInfo?.resume} target="_blank">
-            <button className="hero_button">Resume</button>
-          </Link>
-        </div>
-      </motion.div>
-      <nav className={`xl:hidden`}>
-        <div
-          className={`flex flex-col items-start justify-center p-4 bg-gray-200 text-red-800 z-40 opacity-1 fixed top-0 left-0 right-0 transition-all ease-[cubic-bezier(0.165, 0.84, 0.44, 1)] duration-700  ${
-            showMobileNav ? "translate-y-0" : "-translate-y-80"
-          } `}
+      />
+
+      <div className="relative z-10 section-container flex flex-col items-center text-center max-w-4xl">
+        {/* Profile Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden mb-8"
+          style={{
+            border: "2px solid var(--border-light)",
+            boxShadow: "var(--shadow-lg)",
+          }}
         >
-          <Link href={"#about"}>
-            <button
-              onClick={() => setShowMobileNav(!showMobileNav)}
-              className="hero_button"
-            >
-              About
-            </button>
+          {pageInfo?.heroImage && (
+            <Image
+              src={urlFor(pageInfo.heroImage).url()}
+              fill
+              alt={pageInfo.name || "Profile"}
+              className="object-cover"
+              priority
+            />
+          )}
+        </motion.div>
+
+        {/* Overline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="section-heading mb-4"
+        >
+          {pageInfo?.heroTitle || "Welcome"}
+        </motion.p>
+
+        {/* Typewriter text */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-display-lg md:text-display-xl font-bold min-h-[11.55rem] md:min-h-[15.75rem]"
+          style={{ color: "var(--text-primary)" }}
+        >
+          <span>{text}</span>
+          <Cursor cursorStyle="|" cursorColor="var(--text-tertiary)" />
+        </motion.h1>
+
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="text-body-lg mt-6 max-w-2xl leading-relaxed"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          Crafting digital experiences with precision and care.
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="flex flex-wrap gap-4 mt-10 justify-center"
+        >
+          <Link href="#projects" className="btn-primary">
+            View Work
           </Link>
-          <Link href={"#experience"}>
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Experience
-            </button>
+          <Link href="#contact" className="btn-secondary">
+            Get in Touch
           </Link>
-          <Link href={"#skills"}>
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Skills
-            </button>
-          </Link>
-          <Link href={"#projects"}>
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Projects
-            </button>
-          </Link>
-          <Link href={"#blogs"}>
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
-            >
-              Blogs
-            </button>
-          </Link>
-          <Link href={pageInfo?.resume} target="_blank">
-            <button
-              className="hero_button"
-              onClick={() => setShowMobileNav(!showMobileNav)}
+          {pageInfo?.resume && (
+            <a
+              href={pageInfo.resume}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-secondary"
             >
               Resume
-            </button>
-          </Link>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 300 }}
-          animate={{ opacity: [0.1, 0.5, 0.8, 1], y: 0 }}
-          transition={{ duration: 2 }}
-          viewport={{ once: true }}
-          className="fixed right-2 top-2 text-red-800 z-40 flex items-center gap-2 uppercase font-bold"
-          onClick={() => setShowMobileNav(!showMobileNav)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-8 h-8"
-          >
-            <path
-              fillRule="evenodd"
-              d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-              clipRule="evenodd"
-            />
-          </svg>
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                />
+              </svg>
+            </a>
+          )}
         </motion.div>
-      </nav>
-    </motion.div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        className="absolute bottom-8 flex flex-col items-center gap-2"
+      >
+        <span
+          className="text-overline"
+          style={{ color: "var(--text-tertiary)" }}
+        >
+          Scroll
+        </span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          className="w-5 h-8 rounded-full border-2 flex items-start justify-center pt-1.5"
+          style={{ borderColor: "var(--border)" }}
+        >
+          <div
+            className="w-1 h-1.5 rounded-full"
+            style={{ background: "var(--text-tertiary)" }}
+          />
+        </motion.div>
+      </motion.div>
+    </section>
   );
 };
