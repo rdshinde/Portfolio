@@ -21,6 +21,7 @@ export const BlogCard = ({ post }: Props) => {
       target="_blank"
       rel="noopener noreferrer"
       className="block group h-full"
+      title={`Read "${post.title}" on Hashnode`}
     >
       <motion.div
         whileHover={{ y: -6, scale: 1.01 }}

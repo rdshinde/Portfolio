@@ -114,6 +114,11 @@ export const ExperienceCard = ({ experience, index, isLast, total }: Props) => {
         <motion.div
           className="rounded-2xl p-5 md:p-6 cursor-pointer transition-all duration-300 relative overflow-hidden"
           onClick={() => setExpanded(!expanded)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpanded(!expanded); } }}
+          aria-expanded={expanded}
+          title={expanded ? 'Collapse details' : 'Expand details'}
           whileHover={{ scale: 1.005 }}
           style={{
             background: "var(--bg-card)",

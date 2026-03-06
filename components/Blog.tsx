@@ -31,6 +31,7 @@ export const Blog = ({ blog, key }: Props) => {
             target="_blank"
             rel="noreferrer"
             href={`https://firsteverblogs.hashnode.dev/${blog.slug}`}
+            title={`Read full article: ${blog.title}`}
           >
             <span className="text-blue-500  hover:cursor-pointer">
               &nbsp;Read More

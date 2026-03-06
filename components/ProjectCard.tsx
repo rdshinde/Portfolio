@@ -27,6 +27,7 @@ export const ProjectCard = ({ project }: Props) => {
               target="_blank"
               rel="noreferrer"
               className="px-5 py-2.5 rounded-full text-caption font-medium bg-white text-black transition-transform duration-300 hover:scale-105"
+              title={`View source code for ${project.title}`}
             >
               Source
             </a>
@@ -37,6 +38,7 @@ export const ProjectCard = ({ project }: Props) => {
               target="_blank"
               rel="noreferrer"
               className="px-5 py-2.5 rounded-full text-caption font-medium border border-white text-white transition-transform duration-300 hover:scale-105"
+              title={`View live demo of ${project.title}`}
             >
               Live Demo
             </a>

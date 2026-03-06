@@ -87,7 +87,7 @@ const Home: NextPage<Props> = ({
       </footer>
 
       {/* Back to top */}
-      <Link href="#hero">
+      <Link href="#hero" title="Back to top">
         <div className="fixed bottom-6 right-6 z-30">
           <div
             className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"
