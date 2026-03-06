@@ -145,7 +145,7 @@ export const Contact = ({ pageInfo }: Props) => {
               required
             />
             <div className="flex justify-center pt-2">
-              <button type="submit" className="btn-primary px-12 py-4">
+              <button type="submit" className="btn-primary px-12 py-4" title="Send message via email">
                 Send Message
                 <svg
                   className="w-4 h-4 ml-2"

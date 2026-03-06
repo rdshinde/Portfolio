@@ -96,10 +96,10 @@ export const Hero = ({ pageInfo }: Props) => {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="flex flex-wrap gap-4 mt-10 justify-center"
         >
-          <Link href="#projects" className="btn-primary">
+          <Link href="#projects" className="btn-primary" title="View my projects">
             View Work
           </Link>
-          <Link href="#contact" className="btn-secondary">
+          <Link href="#contact" className="btn-secondary" title="Go to contact section">
             Get in Touch
           </Link>
           {pageInfo?.resume && (
@@ -108,6 +108,7 @@ export const Hero = ({ pageInfo }: Props) => {
               target="_blank"
               rel="noreferrer"
               className="btn-secondary"
+              title="Download resume (opens in new tab)"
             >
               Resume
               <svg

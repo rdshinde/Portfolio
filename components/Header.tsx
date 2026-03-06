@@ -40,7 +40,7 @@ export const Header = ({ socials }: Props) => {
       >
         <nav className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 h-16 flex items-center justify-between">
           {/* Logo / Name */}
-          <Link href="#hero" className="group">
+          <Link href="#hero" className="group" title="Go to top">
             <span
               className="text-title font-semibold tracking-tight transition-opacity duration-300 group-hover:opacity-70"
               style={{ color: "var(--text-primary)" }}
@@ -63,6 +63,7 @@ export const Header = ({ socials }: Props) => {
                 href={link.href}
                 className="text-caption font-medium transition-all duration-300 hover:opacity-60"
                 style={{ color: "var(--text-secondary)" }}
+                title={`Go to ${link.label} section`}
               >
                 {link.label}
               </Link>
@@ -82,6 +83,7 @@ export const Header = ({ socials }: Props) => {
                   style={{ width: 32, height: 32 }}
                   target="_blank"
                   className="transition-opacity duration-300 hover:opacity-60"
+                  title={`Visit ${new URL(social.url).hostname}`}
                 />
               ))}
             </div>
@@ -98,6 +100,7 @@ export const Header = ({ socials }: Props) => {
               className="md:hidden w-10 h-10 flex items-center justify-center rounded-full transition-colors duration-300 hover:bg-[var(--accent-muted)]"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
+              title={mobileOpen ? "Close menu" : "Open menu"}
             >
               <svg
                 className="w-5 h-5"
@@ -149,6 +152,7 @@ export const Header = ({ socials }: Props) => {
                     className="text-headline font-semibold transition-opacity duration-300 hover:opacity-60"
                     style={{ color: "var(--text-primary)" }}
                     onClick={() => setMobileOpen(false)}
+                    title={`Go to ${link.label} section`}
                   >
                     {link.label}
                   </Link>
@@ -164,6 +168,7 @@ export const Header = ({ socials }: Props) => {
                     bgColor="transparent"
                     style={{ width: 36, height: 36 }}
                     target="_blank"
+                    title={`Visit ${new URL(social.url).hostname}`}
                   />
                 ))}
               </div>
